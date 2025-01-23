@@ -17,7 +17,9 @@ bool	start_game(t_game *game)
 	set_default_values(game);
 	set_diff(game);
 	create_board(game);
+	display_board(game);
 //	while(!game->game_over)
+//		play_game();
 //		print_board(game->player_board);
 
 	return (false);

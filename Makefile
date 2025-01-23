@@ -6,7 +6,8 @@ OBJ_DIR = obj/
 
 SRC =	$(SRC_DIR)main.cpp			\
 		$(SRC_DIR)initialize.cpp	\
-		$(SRC_DIR)difficulty.cpp
+		$(SRC_DIR)difficulty.cpp	\
+		$(SRC_DIR)board.cpp
 
 OBJ = $(SRC:$(SRC_DIR)%.cpp=$(OBJ_DIR)%.o)
 

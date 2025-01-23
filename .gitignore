@@ -1,0 +1,29 @@
+# Object files
+
+*.o
+
+
+# Libraries
+
+*.a
+*.lib
+*.la
+
+
+# Executables
+
+*.out
+*.exe
+*.app
+
+
+# Debug files
+
+*.dSYM/
+
+
+# Junk
+
+*.DS_Store
+*.swp
+*.vscode
