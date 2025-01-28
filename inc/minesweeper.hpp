@@ -17,14 +17,18 @@ typedef struct s_game {
 	char**	player_board;
 	int		coord_row;
 	int		coord_col;
-	bool	game_over;
+	int		game_over;
 	bool	replay;
 }	t_game;
+
+void	display_difficulty_menu(void);
+void	display_replay_menu(void);
+void	display_game_over_menu(t_game *game);
+void	display_board(t_game *game, char** board);
 
 bool	start_game(t_game *game);
 void	set_diff(t_game *game);
 void	create_boards(t_game *game);
-void	display_board(t_game *game, char** board);
 void	first_move(t_game *game);
 void	game_move(t_game *game);
 void	set_board(t_game *game);

@@ -1,81 +1,57 @@
 #include "minesweeper.hpp"
 
-void	display_board(t_game *game, char** board)
-{
-	std::cout << "  ";
-	for (int i = 0; i < game->width; i++)
-		std::cout << char('A' + i);
-	std::cout << std::endl << " ";
-	for (int i = 0; i < game->width + 2; i++)
-		std::cout << "#";
-	std::cout << std::endl;
-	for(int i = 0; i < game->height; i++)
-	{
-		std::cout << char('a' + i)<< "#";
-		for (int j = 0; j < game->width; j++)
-			std::cout << board[i][j];
-		std::cout << "#" << std::endl;
-	}
-	std::cout << " ";
-	for (int i = 0; i < game->width + 2; i++)
-		std::cout << "#";
-	std::cout << std::endl;
-}
-
 char	count_bombs(t_game *game, int i)
 {
 	int	row;
 	int	col;
+	int	nrow;
+	int	ncol;
 	int	bombs;
 
 	row = i/game->width;
 	col = i%game->width;
 	bombs = 0;
-	if (row - 1 >= 0)
+	
+	for (int r = -1; r < 2; r++)
 	{
-		if (col - 1 >= 0)
-			if (game->board[row - 1][col - 1] == '*')
-				bombs++;
-		if (game->board[row - 1][col] == '*')
-			bombs++;
-		if (col + 1 < game->width)
-			if (game->board[row - 1][col + 1] == '*')
-			bombs++;
+		for (int c = -1; c < 2; c++)
+		{
+			if (!r && !c)
+				continue;
+			nrow = row + r;
+			ncol = col + c;
+			if (nrow >= 0 && nrow < game->height && ncol >= 0 && ncol < game->width)
+				if (game->board[nrow][ncol] == '*')
+					bombs++;
+		}
 	}
-	if (row + 1 < game->height)
-	{
-		if (col - 1 >= 0)
-			if (game->board[row + 1][col - 1] == '*')
-				bombs++;
-		if (game->board[row + 1][col] == '*')
-			bombs++;
-		if (col + 1 < game->width)
-			if (game->board[row + 1][col + 1] == '*')
-			bombs++;
-	}
-	if (col - 1 >= 0)
-		if (game->board[row][col - 1] == '*')
-			bombs++;
-	if (col + 1 < game->width)
-		if (game->board[row][col + 1] == '*')
-			bombs++;
 	return (bombs + '0');
+}
+
+bool	adjacent(t_game *game, int row, int col)
+{
+	if (row >= game->coord_row - 1 && row <= game->coord_row + 1 &&
+		col >= game->coord_col - 1  && col <= game->coord_col + 1)
+		return true;
+	return false;
 }
 
 void	set_board(t_game *game)
 {
 	int	i;
-	int	tile;
+	int	row;
+	int col;
 
 	i = 0;
 	while(i < game->number_bombs)
 	{
-		tile = rand() % (game->height * game->width);
-		if (tile/game->width != game->coord_row || tile%game->width != game->coord_col)
+		row = rand() % game->height;
+		col = rand() % game->width;
+		if (!adjacent(game, row, col))
 		{
-			if(game->board[tile/game->width][tile%game->width] != '*')
+			if(game->board[row][col] != '*')
 				i++;
-			game->board[tile/game->width][tile%game->width] = '*';
+			game->board[row][col] = '*';
 		}
 	}
 	i = 0;
@@ -90,24 +66,18 @@ void	set_board(t_game *game)
 void	create_boards(t_game *game)
 {
 	game->board = new char* [game->height];
-	for(int i = 0; i < game->height; i++)
-	{
-		game->board[i] = new char [game->width];
-		for (int j = 0; j < game->width; j++)
-			game->board[i][j] = '.';
-	}
 	game->score_board = new char* [game->height];
-	for(int i = 0; i < game->height; i++)
-	{
-		game->score_board[i] = new char [game->width];
-		for (int j = 0; j < game->width; j++)
-			game->score_board[i][j] = '.';
-	}
 	game->player_board = new char* [game->height];
 	for(int i = 0; i < game->height; i++)
 	{
+		game->board[i] = new char [game->width];
+		game->score_board[i] = new char [game->width];
 		game->player_board[i] = new char [game->width];
 		for (int j = 0; j < game->width; j++)
+		{
+			game->board[i][j] = '.';
+			game->score_board[i][j] = '.';
 			game->player_board[i][j] = '.';
+		}
 	}
 }

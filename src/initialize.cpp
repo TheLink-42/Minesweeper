@@ -10,8 +10,35 @@ void	set_default_values(t_game *game)
 	game->player_board = NULL;
 	game->coord_col = -1;
 	game->coord_row = -1;
-	game->game_over = false;
+	game->game_over = 0;
 	game->replay = false;
+}
+
+void	free_boards(t_game *game)
+{
+	for (int i = 0; i < game->height; i++)
+	{
+		delete[] game->board[i];
+		delete[] game->score_board[i];
+		delete[] game->player_board[i];
+	}
+	delete[] game->board;
+	delete[] game->score_board;
+	delete[] game->player_board;
+}
+
+void	replay(t_game *game)
+{
+	std::string	input;
+	int			replay;
+
+	display_replay_menu();
+	std::getline(std::cin, input);
+		replay = stoi(input);
+	if (replay == 1)
+		game->replay = true;
+	else if (replay != 2)
+		std::cout << "Invalid answwer. If you want to replay, execute again." << std::endl;
 }
 
 bool	start_game(t_game *game)
@@ -21,13 +48,11 @@ bool	start_game(t_game *game)
 	create_boards(game);
 	display_board(game, game->player_board);
 	first_move(game);
-	display_board(game, game->board);
 	while(!game->game_over)
-	{
 		game_move(game);
-		display_board(game, game->player_board);
-	}
-	std::cout << "GAME OVER" << std::endl;
+	display_game_over_menu(game);
+	free_boards(game);
+	replay(game);
 	return (game->replay);
 }
 

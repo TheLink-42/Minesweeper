@@ -8,7 +8,8 @@ SRC =	$(SRC_DIR)main.cpp			\
 		$(SRC_DIR)initialize.cpp	\
 		$(SRC_DIR)difficulty.cpp	\
 		$(SRC_DIR)board.cpp			\
-		$(SRC_DIR)move.cpp
+		$(SRC_DIR)move.cpp			\
+		$(SRC_DIR)display.cpp
 
 OBJ = $(SRC:$(SRC_DIR)%.cpp=$(OBJ_DIR)%.o)
 
