@@ -1,83 +1,58 @@
-#include "minesweeper.hpp"
+#include "Board.h"
 
-char	count_bombs(t_game *game, int i)
+Board::Board()
 {
-	int	row;
-	int	col;
-	int	nrow;
-	int	ncol;
-	int	bombs;
-
-	row = i/game->width;
-	col = i%game->width;
-	bombs = 0;
-	
-	for (int r = -1; r < 2; r++)
-	{
-		for (int c = -1; c < 2; c++)
-		{
-			if (!r && !c)
-				continue;
-			nrow = row + r;
-			ncol = col + c;
-			if (nrow >= 0 && nrow < game->height && ncol >= 0 && ncol < game->width)
-				if (game->board[nrow][ncol] == '*')
-					bombs++;
-		}
-	}
-	return (bombs + '0');
+    rows = 0;
+    cols = 0;
 }
 
-bool	adjacent(t_game *game, int row, int col)
+Board::Board(int rows, int cols)
 {
-	if (row >= game->coord_row - 1 && row <= game->coord_row + 1 &&
-		col >= game->coord_col - 1  && col <= game->coord_col + 1)
-		return true;
-	return false;
+    this->rows = rows;
+    this->cols = cols;
 }
 
-void	set_board(t_game *game)
+Board::~Board()
 {
-	int	i;
-	int	row;
-	int col;
 
-	i = 0;
-	while(i < game->number_bombs)
-	{
-		row = rand() % game->height;
-		col = rand() % game->width;
-		if (!adjacent(game, row, col))
-		{
-			if(game->board[row][col] != '*')
-				i++;
-			game->board[row][col] = '*';
-		}
-	}
-	i = 0;
-	while (i < (game->height * game->width))
-	{
-		if(game->board[i/game->width][i%game->width] != '*')
-			game->board[i/game->width][i%game->width] = count_bombs(game, i);
-		i++;
-	}
 }
 
-void	create_boards(t_game *game)
+
+
+void    Board::destroy()
 {
-	game->board = new char* [game->height];
-	game->score_board = new char* [game->height];
-	game->player_board = new char* [game->height];
-	for(int i = 0; i < game->height; i++)
-	{
-		game->board[i] = new char [game->width];
-		game->score_board[i] = new char [game->width];
-		game->player_board[i] = new char [game->width];
-		for (int j = 0; j < game->width; j++)
-		{
-			game->board[i][j] = '.';
-			game->score_board[i][j] = '.';
-			game->player_board[i][j] = '.';
-		}
-	}
+    for(int i = 0; i < rows; i++)
+        for(int j = 0; j < cols, j++)
+            cells[i][j].destroy();
+}
+
+
+
+
+int     Board::get_rows() const
+{
+    return rows;
+}
+
+int     Board::get_cols() const
+{
+    return cols;
+}
+
+Cell    Board::get_cell(int rows, int cols) const
+{
+    return cells[rows][cols];
+}
+
+
+
+bool    Board::is_valid(int rows, int cols)
+{
+    return (rows >= 0 && rows < this->rows && cols >= 0 && cols < this->cols);
+}
+
+void    Board::set_cell(int rows, int cols, Cell cell)
+{
+    if (this->is_valid(rows, cols))
+        cells[rows][cols] = cell;
 }

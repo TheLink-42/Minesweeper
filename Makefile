@@ -7,13 +7,13 @@ OBJ_DIR = obj/
 SRC =	$(SRC_DIR)main.cpp			\
 		$(SRC_DIR)initialize.cpp	\
 		$(SRC_DIR)difficulty.cpp	\
-		$(SRC_DIR)board.cpp			\
+		$(SRC_DIR)old_board.cpp			\
 		$(SRC_DIR)move.cpp			\
 		$(SRC_DIR)display.cpp
 
 OBJ = $(SRC:$(SRC_DIR)%.cpp=$(OBJ_DIR)%.o)
 
-CPP = clang++
+CPP = c++
 CPPFLAGS = -Wall -Wextra -Werror -I $(INC_DIR)
 RM = rm -rf
 
@@ -21,12 +21,12 @@ RM = rm -rf
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	@$(CPP) $(CPPFLAGS) $(OBJ) -o $(NAME)
+$(NAME): $(SRC)
+	@$(CPP) $(CPPFLAGS) $(SRC) -o $(NAME)
 	@echo compiled
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.cpp
-	@mkdir -p $(@D)
+	@mkdir obj
 	@$(CPP) $(CPPFLAGS) -c $< -o $@
 
 clean:
