@@ -62,15 +62,17 @@ bool    Board::set_cell(int rows, int cols, Cell cell)
 ////																		////
 ////////////////////////////////////////////////////////////////////////////////
 
-void    Board::destroy()
-{
-    for(int i = 0; i < rows; i++)
-        for(int j = 0; j < cols; j++)
-            cells[i][j].destroy();
-}
-
 bool    Board::is_valid(int rows, int cols) const
 {
     return (rows >= 0 && rows < this->rows && cols >= 0 && cols < this->cols);
 }
 
+
+void    Board::destroy()
+{
+    for(int i = 0; i < rows; i++)
+        for(int j = 0; j < cols; j++)
+            cells[i][j].destroy();
+    rows = 0;
+    cols = 0;
+}
