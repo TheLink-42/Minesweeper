@@ -24,5 +24,5 @@ class Board
 
 		bool	is_valid(int rows, int cols) const;
 
-		void	set_cell(int rows, int cols, Cell cell);
+		bool	set_cell(int rows, int cols, Cell cell);
 };

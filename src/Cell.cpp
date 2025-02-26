@@ -1,5 +1,12 @@
 #include "Cell.h"
 
+
+////////////////////////////////////////////////////////////////////////////////
+////																		////
+////							CONSTRUCTORS								////
+////																		////
+////////////////////////////////////////////////////////////////////////////////
+
 Cell::Cell()
 {
     state = EMPTY;
@@ -13,18 +20,12 @@ Cell::~Cell()
 
 }
 
-void    Cell::destroy()
-{
-    state = EMPTY;
-    exposed = false;
-    number = 0;
-    marked = false;
-}
 
-
-
-
-
+////////////////////////////////////////////////////////////////////////////////
+////																		////
+////							GETTERS & SETTERS							////
+////																		////
+////////////////////////////////////////////////////////////////////////////////
 
 bool    Cell::get_exposed() const
 {
@@ -42,10 +43,31 @@ int     Cell::get_number() const
 }
 
 
+void	Cell::set_mine()
+{
+	state = MINE;
+}
+
+void	Cell::set_number(int number)
+{
+	this->number = number;
+	state = NUMBER;
+}
 
 
+////////////////////////////////////////////////////////////////////////////////
+////																		////
+////							MEMBER FUNCTIONS							////
+////																		////
+////////////////////////////////////////////////////////////////////////////////
 
-
+void    Cell::destroy()
+{
+    state = EMPTY;
+    exposed = false;
+    number = 0;
+    marked = false;
+}
 
 bool	Cell::is_empty() const
 {
@@ -61,9 +83,6 @@ bool	Cell::is_number() const
 {
 	return state == NUMBER;
 }
-
-
-
 
 
 void	Cell::hide_cell()
@@ -86,18 +105,4 @@ void	Cell::unmark_cell()
 	marked = false;
 }
 
-
-
-
-
-void	Cell::set_mine()
-{
-	state = MINE;
-}
-
-void	Cell::set_number(int number)
-{
-	this->number = number;
-	state = NUMBER;
-}
 
