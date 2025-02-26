@@ -61,14 +61,6 @@ void	Cell::set_number(int number)
 ////																		////
 ////////////////////////////////////////////////////////////////////////////////
 
-void    Cell::destroy()
-{
-    state = EMPTY;
-    exposed = false;
-    number = 0;
-    marked = false;
-}
-
 bool	Cell::is_empty() const
 {
 	return state == EMPTY;
@@ -106,3 +98,10 @@ void	Cell::unmark_cell()
 }
 
 
+void    Cell::destroy()
+{
+    state = EMPTY;
+    exposed = false;
+    number = 0;
+    marked = false;
+}
