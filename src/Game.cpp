@@ -7,7 +7,7 @@
 ////																		////
 ////////////////////////////////////////////////////////////////////////////////
 
-Game::Game()
+Game::Game(): board()
 {
 	movements = 0;
 	mines = 0;
@@ -134,4 +134,59 @@ bool	Game::hide(int row, int col)
 		exposed++;
 	}
 	return valid;
+}
+
+void	Game::destroy()
+{
+	board.destroy();
+	movements = 0;
+	mines = 0;
+	exposed = 0;
+	mine_exposed = false;
+}
+
+void	Game::floodfill(int row, int col)
+{
+	if (board.is_valid(row, col) && !is_exposed(row, col) && !is_marked(row, col))
+	{
+		board.get_cell(row, col).expose_cell();
+		if (!get_number(row, col))
+		{
+			for (int r = row - 1; r <= row + 1; r++)
+			{
+				for (int c = col - 1; c <= col + 1; c++)
+				{
+					if (r == row && c == col)
+						continue;
+					floodfill(r, c);
+				}
+			}
+		}
+	}
+}
+
+int		Game::play(int row, int col, PosList list)
+{
+	int	output = 0;
+
+	if (!board.is_valid(row, col))
+		output = -1;
+	else if (is_exposed(row, col))
+		output = 1;
+	else if (is_marked(row, col))
+		output = 2;
+	else
+	{
+		list.add_last(row, col);
+		if (is_mine(row, col))
+		{
+			mine_exposed = true;
+			board.get_cell(row, col).expose_cell();
+		}
+		else if (!get_number(row, col))
+			floodfill(row, col);
+		else
+			board.get_cell(row, col).expose_cell();	
+	}
+	return output;
 }

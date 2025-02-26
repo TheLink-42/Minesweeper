@@ -11,6 +11,8 @@ class Game
 		int		exposed;
 		bool	mine_exposed;
 
+		void	floodfill(int row, int col);
+
     public:
     	Game();
 		Game(int rows, int cols);
@@ -39,7 +41,7 @@ class Game
 		bool	mark(int row, int col);
 		bool	hide(int row, int col);
 
-//		int		play(int row, int col, PosList list);
+		int		play(int row, int col, PosList list);
 		
 };
 
