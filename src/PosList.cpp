@@ -1,0 +1,69 @@
+#include "PosList.h"
+
+
+////////////////////////////////////////////////////////////////////////////////
+////																		////
+////							CONSTRUCTORS								////
+////																		////
+////////////////////////////////////////////////////////////////////////////////
+
+PosList::PosList()
+{
+	count = 0;
+}
+
+PosList::~PosList()
+{
+
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+////																		////
+////							GETTERS & SETTERS							////
+////																		////
+////////////////////////////////////////////////////////////////////////////////
+
+int	PosList::get_length() const
+{
+	return count;
+}
+
+int	PosList::get_posx(int i) const
+{
+	int x = -1;
+	if (i > 0 && i < count)
+		x = list[i].posx;
+	return x;
+}
+
+int	PosList::get_posy(int i) const
+{
+	int y = -1;
+	if (i > 0 && i < count)
+		y = list[i].posy;
+	return y;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+////																		////
+////							MEMBER FUNCTIONS							////
+////																		////
+////////////////////////////////////////////////////////////////////////////////
+
+void	PosList::add_last(int x, int y)
+{
+	if (count < MAX_LIST)
+	{
+		list[count].posx = x;
+		list[count].posy = y;
+		count++;
+	}
+}
+
+
+void	PosList::destroy()
+{
+	count = 0;
+}
