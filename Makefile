@@ -4,12 +4,13 @@ INC_DIR = inc
 SRC_DIR = src/
 OBJ_DIR = obj/
 
-SRC =	$(SRC_DIR)main.cpp			\
-		$(SRC_DIR)initialize.cpp	\
-		$(SRC_DIR)difficulty.cpp	\
-		$(SRC_DIR)old_board.cpp			\
-		$(SRC_DIR)move.cpp			\
-		$(SRC_DIR)display.cpp
+SRC =	$(SRC_DIR)Board.cpp				\
+		$(SRC_DIR)Cell.cpp				\
+		$(SRC_DIR)Game.cpp				\
+		$(SRC_DIR)PosList.cpp			\
+		$(SRC_DIR)UndoList.cpp			\
+		$(SRC_DIR)inputOutput.cpp		\
+		$(SRC_DIR)main.cpp
 
 OBJ = $(SRC:$(SRC_DIR)%.cpp=$(OBJ_DIR)%.o)
 
@@ -21,12 +22,12 @@ RM = rm -rf
 
 all: $(NAME)
 
-$(NAME): $(SRC)
-	@$(CPP) $(CPPFLAGS) $(SRC) -o $(NAME)
+$(NAME): $(OBJ)
+	@$(CPP) $(CPPFLAGS) $(OBJ) -o $(NAME)
 	@echo compiled
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.cpp
-	@mkdir obj
+	@mkdir -p $(@D)
 	@$(CPP) $(CPPFLAGS) -c $< -o $@
 
 clean:

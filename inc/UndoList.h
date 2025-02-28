@@ -1,7 +1,7 @@
 #pragma once
 #include "PosList.h"
 
-int const MAX_UNDO = 100;
+const int MAX_UNDO = 100;
 
 class UndoList
 {

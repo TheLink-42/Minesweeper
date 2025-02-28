@@ -60,6 +60,11 @@ int	Game::get_rows() const
 	return board.get_rows();
 }
 
+Board	Game::get_board() const
+{
+	return board;
+}
+
 
 bool	Game::set_mine(int row, int col)
 {
@@ -74,6 +79,11 @@ bool	Game::set_mine(int row, int col)
 ////							MEMBER FUNCTIONS							////
 ////																		////
 ////////////////////////////////////////////////////////////////////////////////
+
+bool	Game::is_valid(int row, int col) const
+{
+	return board.is_valid(row, col);
+}
 
 bool	Game::is_complete() const
 {
@@ -190,3 +200,4 @@ int		Game::play(int row, int col, PosList list)
 	}
 	return output;
 }
+

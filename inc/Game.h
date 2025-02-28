@@ -2,6 +2,7 @@
 #include "Board.h"
 #include "PosList.h"
 
+
 class Game
 {
     private:
@@ -20,6 +21,7 @@ class Game
 
 		void	destroy();
 
+		Board	get_board() const;
 		int		get_cols() const;
 		int		get_mines() const;
 		int		get_movements() const;
@@ -28,6 +30,7 @@ class Game
 
 		bool	set_mine(int row, int col);
 
+		bool	is_valid(int row, int col) const;
 		bool	is_complete() const;
 		bool	exposed_mine() const;
 

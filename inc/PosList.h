@@ -1,6 +1,6 @@
 #pragma once
 
-int const MAX_LIST = 100;
+const int MAX_LIST = 100;
 
 class PosList
 {

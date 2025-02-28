@@ -1,8 +1,8 @@
 #pragma once
 #include "Cell.h"
 
-int const   MAX_ROWS = 10;
-int const   MAX_COLS = 10;
+const int   MAX_ROWS = 20;
+const int   MAX_COLS = 20;
 
 class Board
 {
