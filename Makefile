@@ -35,7 +35,7 @@ clean:
 	@echo "obj files removed"
 
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 	@echo "$(NAME) removed"
 
 
