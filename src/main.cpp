@@ -2,18 +2,6 @@
 #include "UndoList.h"
 #include "inputOutput.h"
 
-/*
-#include "minesweeper.hpp"
-int main( void )
-{
-	srand(time(NULL));
-	t_game *game;
-	game = new t_game;
-	while(start_game(game));
-	delete game;
-	return(0);
-}
-	*/
 
 void	play(Game& game, int x, int y, UndoList& list);
 
@@ -34,6 +22,8 @@ int main( void )
 			play(game, x, y, undo);
 		}
 		display_result(game);
+		game.destroy(); //Cuando implementemos memoria dinamica será util
+		undo.destroy(); //Cuando implementemos memoria dinamica será util
 	}
 
 	return 0;
@@ -67,7 +57,7 @@ void	play(Game& game, int x, int y, UndoList& undoList)
 			if (!output)
 				undoList.add_last(list);
 			else if (output == -1)
-				cout << RED << "Please, restrain coordinates to valid ones" << RESET << endl;
+				std::cout << RED << "Por favor, introduzca coordenadas validas" << RESET << std::endl;
 		}
 		display_game(game);
 	}
