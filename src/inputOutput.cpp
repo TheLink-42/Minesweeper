@@ -7,7 +7,7 @@
 ////																		////
 ////////////////////////////////////////////////////////////////////////////////
 
-void	display_header()
+void	display_intro()
 {
 	cout << MAGENTA;
 	cout << "+------------------------------+" << endl;
@@ -15,56 +15,15 @@ void	display_header()
 	cout << "+------------------------------+" << RESET << endl;
 }
 
-void	display_result()
-{
-
-}
-
-
-////////////////////////////////////////////////////////////////////////////////
-////																		////
-////							GAME LOADING								////
-////																		////
-////////////////////////////////////////////////////////////////////////////////
-
-bool	load_game(Game& game)
-{
-	ifstream	file;
-	string		file_name;
-	bool		valid = false;
-
-	cout << "Por favor, introduzca el nombre del fichero escogido: ";
-	cin >> file_name;
-	file_name = "./tools/" + file_name;
-	file.open(file_name.c_str());
-	if (!file.is_open())
-		cerr << "Error: No se pudo abrir el archivo " << file_name << endl;
-	else
-	{
-		file >> game;
-		valid = true;
-		file.close();
-	}
-
-	return valid;
-}
-
-
-////////////////////////////////////////////////////////////////////////////////
-////																		////
-////							GAME DISPLAY								////
-////																		////
-////////////////////////////////////////////////////////////////////////////////
-
-void	display_game(Game game)
-{
-	cout << game;
-}
-
 namespace
 {
 	void	display_gameover()
 	{
+		cout << RED;
+		cout << "+------------------------------+" << endl;
+		cout << "|          GAME  OVER          |" << endl;
+		cout << "+------------------------------+" << RESET << endl;
+		/*
 		string color = BG_RED;
 
 		cout << color << setw(8) << ' ' << RESET << setw(2) << ' '; //1-G
@@ -110,10 +69,16 @@ namespace
 		cout << color << setw(8) << ' ' << RESET << setw(5) << ' '; //5-O
 		cout << color << setw(2) << ' ' << RESET << setw(5) << ' '; //5-V
 		cout << color << setw(8) << ' ' << RESET << setw(2) << ' '; //5-E
-		cout << color << setw(2) << ' ' << RESET << setw(4) << ' ' << color << setw(2) << ' ' << RESET << endl; // 5-R	
+		cout << color << setw(2) << ' ' << RESET << setw(4) << ' ' << color << setw(2) << ' ' << RESET << endl; // 5-R	*/
 	}
 	void	display_victory()
 	{
+		cout << LGREEN;
+		cout << "+------------------------------+" << endl;
+		cout << "|           VICTORY            |" << endl;
+		cout << "+------------------------------+" << RESET << endl;
+
+		/*
 		string color = BG_LGREEN;
 
 		cout << color << setw(2) << ' ' << RESET << setw(4) << ' ' << color << setw(2) << ' ' << RESET << setw(2) << ' '; //1-V
@@ -154,7 +119,7 @@ namespace
 		cout << color << setw(2) << ' ' << RESET << setw(5) << ' '; //5-T
 		cout << color << setw(8) << ' ' << RESET << setw(2) << ' '; //1-O
 		cout << color << setw(2) << ' ' << RESET << setw(4) << ' ' << color << setw(2) << ' ' << RESET << setw(5) << ' '; //5-R
-		cout << color << setw(2) << ' ' << RESET << endl; //5-Y
+		cout << color << setw(2) << ' ' << RESET << endl; //5-Y */
 	}
 /*	void	display_score(const Game& game)
 	{
@@ -171,12 +136,64 @@ void	display_result(const Game& game)
 //	display_score(game);
 }
 
+
+////////////////////////////////////////////////////////////////////////////////
+////																		////
+////							GAME LOADING								////
+////																		////
+////////////////////////////////////////////////////////////////////////////////
+
+bool	load_game(Game& game)
+{
+	ifstream	file;
+	string		file_name;
+	bool		valid = false;
+
+	cout << "Por favor, introduzca el nombre del fichero escogido: ";
+	cin >> file_name;
+	file_name = "./tools/" + file_name;
+	file.open(file_name.c_str());
+	if (!file.is_open())
+		cerr << "Error: No se pudo abrir el archivo " << file_name << endl;
+	else
+	{
+		file >> game;
+		valid = true;
+		file.close();
+	}
+
+	return valid;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+////																		////
+////							GAME DISPLAY								////
+////																		////
+////////////////////////////////////////////////////////////////////////////////
+
+void	display_game(Game game)
+{
+	cout << game;
+}
+
+
 ////////////////////////////////////////////////////////////////////////////////
 ////																		////
 ////							USER INPUT									////
 ////																		////
 ////////////////////////////////////////////////////////////////////////////////
 
+void	ask_pos(int& row, int& col)
+{
+	cout << "Please, introduce desired coordinates" << endl;
+	cout << "Possible choices:" << endl;
+	cout << "\t+ -3 -3 (Undo last movement)" << endl;
+	cout << "\t+ -2 -2 (Swap mark mode)" << endl;
+	cout << "\t+ -1 -1 (Forfeit. Counts as a loss)" << endl;
+	cout << "\t+ 0+ 0+ (Coordinates of the desired cell to uncover)" << endl;
+	cin >> row >> col;
+}
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -214,7 +231,7 @@ namespace
 			for (int j = 0; j < cols; j++)
 			{
 				if (game.is_empty(i, j))
-					game.get_board().get_cell(i, j).set_number(count_bombs(game, i, j));
+					game.set_number(i, j, count_bombs(game, i, j));
 			}
 		}
 	}
@@ -257,7 +274,16 @@ namespace
 	}
 	void	print_movements(const Game& game)
 	{
-		cout << RED << "Jugadas: " << game.get_movements() << RESET << endl;
+		cout << MAGENTA;
+		cout << "+------------------------------+" << endl;
+		cout << "|Jugadas: " << LBLUE << left << setw(21) << game.get_movements() << right << MAGENTA << '|' << endl;
+		cout << "|Minas:   " << LBLUE << left << setw(21) << game.get_mines() << right << MAGENTA << '|' << endl;
+		cout << "|Bandera: ";
+		if (game.get_mode())
+			cout << LGREEN << "ON" << MAGENTA << setw(20) << '|' << endl;
+		else
+			cout << RED << "OFF" << MAGENTA << setw(19) << '|' << endl;
+		cout << "+------------------------------+" << RESET << endl;
 	}
 	void	print_header(const Game& game)
 	{
@@ -282,7 +308,7 @@ namespace
 		{
 			if (game.is_marked(i, j))
 				cout << BG_ORANGE << ORANGE;
-			cout << setw(N_SPACE) << setfill(' ') << ' ' << RESET;	
+			cout << setw(N_SPACE) << setfill(' ') << ' ' << RESET;
 		}
 		else
 		{
@@ -293,7 +319,10 @@ namespace
 			{
 				number = game.get_number(i, j);
 				color_number(number);
-				cout << setw(N_SPACE) << setfill(' ') << number << RESET;
+				if (!number)
+					cout << setw(N_SPACE) << setfill(' ') << ' ' << RESET;
+				else
+					cout << setw(N_SPACE) << setfill(' ') << number << RESET;
 			}
 		}
 		cout << "|";

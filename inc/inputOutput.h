@@ -10,7 +10,7 @@ using namespace std;
 
 const int	N_SPACE = 2;
 
-void	display_header();
+void	display_intro();
 void	display_game(Game game);
 void	display_result(const Game& game);
 
