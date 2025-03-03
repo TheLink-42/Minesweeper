@@ -19,9 +19,9 @@ class PosList
 		PosList();
 		~PosList();
 
-		int	get_length() const;
-		int	get_posx(int i) const;
-		int	get_posy(int i) const;
+		int		get_length() const;
+		int		get_posx(int i) const;
+		int		get_posy(int i) const;
 
 		void	destroy();
 		void	add_last(int x, int y);

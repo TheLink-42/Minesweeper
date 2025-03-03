@@ -16,4 +16,5 @@ class UndoList
 
 		void	destroy();
 		void	add_last(PosList list);
+		void	delete_last();
 };

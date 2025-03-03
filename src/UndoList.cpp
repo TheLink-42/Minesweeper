@@ -51,6 +51,11 @@ void	UndoList::add_last(PosList list)
 	}
 }
 
+void	UndoList::delete_last()
+{
+	count--;
+}
+
 
 void	UndoList::destroy()
 {

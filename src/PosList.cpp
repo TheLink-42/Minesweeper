@@ -32,7 +32,7 @@ int	PosList::get_length() const
 int	PosList::get_posx(int i) const
 {
 	int x = -1;
-	if (i > 0 && i < count)
+	if (i >= 0 && i < count)
 		x = list[i].posx;
 	return x;
 }
@@ -40,7 +40,7 @@ int	PosList::get_posx(int i) const
 int	PosList::get_posy(int i) const
 {
 	int y = -1;
-	if (i > 0 && i < count)
+	if (i >= 0 && i < count)
 		y = list[i].posy;
 	return y;
 }
