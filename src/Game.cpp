@@ -13,6 +13,7 @@ Game::Game(): board()
 	mines = 0;
 	exposed = 0;
 	mine_exposed = false;
+	mode = false;
 }
 
 Game::Game(int rows, int cols): board(rows, cols)
@@ -21,6 +22,7 @@ Game::Game(int rows, int cols): board(rows, cols)
 	mines = 0;
 	exposed = 0;
 	mine_exposed = false;
+	mode = false;
 }
 
 Game::~Game()
@@ -65,13 +67,33 @@ Board	Game::get_board() const
 	return board;
 }
 
+bool	Game::get_mode() const
+{
+	return mode;
+}
 
 bool	Game::set_mine(int row, int col)
 {
-	Cell cell;
+	Cell	cell;
 	cell.set_mine();
+	mines++;
 
 	return board.set_cell(row, col, cell);
+}
+
+bool	Game::set_number(int row, int col, int n)
+{
+	Cell	cell;
+	cell.set_number(n);
+
+	return board.set_cell(row, col, cell);
+}
+
+bool	Game::set_forfeit()
+{
+	mine_exposed = true;
+
+	return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -124,26 +146,47 @@ bool	Game::is_number(int row, int col) const
 
 bool	Game::mark(int row, int col)
 {
+	Cell	cell;
 	bool	valid = board.is_valid(row, col);
+
 	if (valid)
 	{
+		cell = board.get_cell(row, col);
 		if(is_marked(row, col))
-			board.get_cell(row, col).unmark_cell();
+		{
+			cell.unmark_cell();
+			mines++;
+		}
 		else
-			board.get_cell(row, col).mark_cell();
+		{
+			cell.mark_cell();
+			mines--;
+		}
+		board.set_cell(row, col, cell);
 	}
 	return valid;
 }
 
 bool	Game::hide(int row, int col)
 {
+	Cell	cell;
 	bool	valid = board.is_valid(row, col);
-	if (valid && !board.get_cell(row, col).get_exposed())
+
+	if (valid && board.get_cell(row, col).get_exposed())
 	{
-		board.get_cell(row, col).expose_cell();
-		exposed++;
+		cell = board.get_cell(row, col);
+		cell.hide_cell();
+		board.set_cell(row, col, cell);
+		exposed--;
 	}
 	return valid;
+}
+
+bool	Game::switch_mode()
+{
+	mode = !mode;
+
+	return true;
 }
 
 void	Game::destroy()
@@ -155,11 +198,17 @@ void	Game::destroy()
 	mine_exposed = false;
 }
 
-void	Game::floodfill(int row, int col)
+void	Game::floodfill(int row, int col, PosList& list)
 {
+	Cell	cell;
+
 	if (board.is_valid(row, col) && !is_exposed(row, col) && !is_marked(row, col))
 	{
-		board.get_cell(row, col).expose_cell();
+		cell = board.get_cell(row, col);
+		cell.expose_cell();
+		board.set_cell(row, col, cell);
+		exposed++;
+		list.add_last(row, col);
 		if (!get_number(row, col))
 		{
 			for (int r = row - 1; r <= row + 1; r++)
@@ -168,35 +217,45 @@ void	Game::floodfill(int row, int col)
 				{
 					if (r == row && c == col)
 						continue;
-					floodfill(r, c);
+					floodfill(r, c, list);
 				}
 			}
 		}
 	}
 }
 
-int		Game::play(int row, int col, PosList list)
+int		Game::play(int row, int col, PosList& list)
 {
-	int	output = 0;
+	int		output = 0;
+	Cell	cell;
 
 	if (!board.is_valid(row, col))
 		output = -1;
 	else if (is_exposed(row, col))
 		output = 1;
+	else if (mode)
+		mark(row, col);
 	else if (is_marked(row, col))
 		output = 2;
 	else
 	{
 		list.add_last(row, col);
+		movements++;
+		cell = board.get_cell(row, col);
+		cell.expose_cell();
 		if (is_mine(row, col))
 		{
 			mine_exposed = true;
-			board.get_cell(row, col).expose_cell();
+			board.set_cell(row, col, cell);
+			exposed++;
 		}
 		else if (!get_number(row, col))
-			floodfill(row, col);
+			floodfill(row, col, list);
 		else
-			board.get_cell(row, col).expose_cell();	
+		{
+			board.set_cell(row, col, cell);
+			exposed++;
+		}
 	}
 	return output;
 }

@@ -10,9 +10,10 @@ class Game
 		int		movements;
 		int		mines;
 		int		exposed;
+		bool	mode;
 		bool	mine_exposed;
 
-		void	floodfill(int row, int col);
+		void	floodfill(int row, int col, PosList& list);
 
     public:
     	Game();
@@ -27,24 +28,28 @@ class Game
 		int		get_movements() const;
 		int		get_number(int row, int col) const;
 		int		get_rows() const;
+		bool	get_mode() const;
 
 		bool	set_mine(int row, int col);
-
+		bool	set_number(int row, int col, int n);
+		bool	set_forfeit();
+		
 		bool	is_valid(int row, int col) const;
 		bool	is_complete() const;
 		bool	exposed_mine() const;
-
+		
 		bool	is_mine(int row, int col) const;
 		bool	is_exposed(int row, int col) const;
 		bool	is_marked(int row, int col) const;
 		bool	is_empty(int row, int col) const;
 		bool	is_number(int row, int col) const;
-
-
+		
+		
+		bool	switch_mode();
 		bool	mark(int row, int col);
 		bool	hide(int row, int col);
 
-		int		play(int row, int col, PosList list);
+		int		play(int row, int col, PosList& list);
 		
 };
 
