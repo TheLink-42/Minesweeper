@@ -12,17 +12,17 @@ class Board
         Cell    cells[MAX_ROWS][MAX_COLS];
 
 	public:
-		Board();
-		Board(int rows, int cols);
-		~Board();
+		Board();											//Constructor por defecto
+		Board(int rows, int cols);							//Constructor con dimensiones establecidas
+		~Board();											//Destructor por defecto
 
-		void	destroy();
+		void	destroy();									//Reestablecimiento de valores base
 
-		int		get_rows() const;
-		int		get_cols() const;
-		Cell	get_cell(int rows, int cols) const;
+		int		get_rows() const;							//Obtención del numero de filas del tablero
+		int		get_cols() const;							//Obtención del numero de columnas del tablero
+		Cell	get_cell(int rows, int cols) const;			//Obtención de una celda específica del tablero
 
-		bool	is_valid(int rows, int cols) const;
+		bool	is_valid(int rows, int cols) const;			//Comprobacion de coordenadas validas
 
-		bool	set_cell(int rows, int cols, Cell cell);
+		bool	set_cell(int rows, int cols, Cell cell);	//Asignacion de una nueva celda en una posicion especifica
 };

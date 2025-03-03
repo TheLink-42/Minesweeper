@@ -13,43 +13,43 @@ class Game
 		bool	mode;
 		bool	mine_exposed;
 
-		void	floodfill(int row, int col, PosList& list);
+		void	floodfill(int row, int col, PosList& list);		//Funcion recursiva para casillas vacias
 
     public:
-    	Game();
-		Game(int rows, int cols);
-    	~Game();
+    	Game();													//Constructor por defecto
+		Game(int rows, int cols);								//Constructor con dimensiones del tablero
+    	~Game();												//Destructor por defecto
 
-		void	destroy();
+		void	destroy();										//Reestablecimiento de valores base
 
-		Board	get_board() const;
-		int		get_cols() const;
-		int		get_mines() const;
-		int		get_movements() const;
-		int		get_number(int row, int col) const;
-		int		get_rows() const;
-		bool	get_mode() const;
+		Board	get_board() const;								//Obtencion del tablero de juego
+		int		get_cols() const;								//Obtencion del numero de columnas
+		int		get_mines() const;								//Obtencion del numero de minas
+		int		get_movements() const;							//Obtencion del numero de movimientos
+		int		get_number(int row, int col) const;				//Obtencion del numero asignado en una casilla especifica
+		int		get_rows() const;								//Obtencion del numero de filas
+		bool	get_mode() const;								//Obtencion del estado del modo banderas
 
-		bool	set_mine(int row, int col);
-		bool	set_number(int row, int col, int n);
-		bool	set_forfeit();
+		bool	set_mine(int row, int col);						//Asignacion de una mina en una casilla especifica
+		bool	set_number(int row, int col, int n);			//Asignacion de un numero en una casilla especifica
+		bool	set_forfeit();									//Asignacion del juego a modo "rendirse"
 		
-		bool	is_valid(int row, int col) const;
-		bool	is_complete() const;
-		bool	exposed_mine() const;
+		bool	is_valid(int row, int col) const;				//Comprobacion de casilla valida
+		bool	is_complete() const;							//Comprobacion de juego finalizado
+		bool	exposed_mine() const;							//Comprobacion de mina expuesta
 		
-		bool	is_mine(int row, int col) const;
-		bool	is_exposed(int row, int col) const;
-		bool	is_marked(int row, int col) const;
-		bool	is_empty(int row, int col) const;
-		bool	is_number(int row, int col) const;
+		bool	is_mine(int row, int col) const;				//Comprobacion de mina en la casilla
+		bool	is_exposed(int row, int col) const;				//Comprobacion de casilla descubierta
+		bool	is_marked(int row, int col) const;				//Comprobacion de casilla marcada
+		bool	is_empty(int row, int col) const;				//Comprobacion de casilla vacia
+		bool	is_number(int row, int col) const;				//Comprobacion de casilla con numero
 		
 		
-		bool	switch_mode();
-		bool	mark(int row, int col);
-		bool	hide(int row, int col);
+		bool	switch_mode();									//Alternar entre modo banderas
+		bool	mark(int row, int col);							//Marcar una casilla
+		bool	hide(int row, int col);							//Esconder una casilla
 
-		int		play(int row, int col, PosList& list);
+		int		play(int row, int col, PosList& list);			//Ejecucion de un movimiento
 		
 };
 

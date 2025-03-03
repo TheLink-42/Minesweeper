@@ -16,15 +16,15 @@ class PosList
 
 
 	public:
-		PosList();
-		~PosList();
+		PosList();							//Constructor por defecto
+		~PosList();							//Destructor por defecto
 
-		int		get_length() const;
-		int		get_posx(int i) const;
-		int		get_posy(int i) const;
+		int		get_length() const;			//Obtencion tamaño de la lista
+		int		get_posx(int i) const;		//Coordenada x de la posicion pedida
+		int		get_posy(int i) const;		//Coordenada y de la posicion pedida
 
-		void	destroy();
-		void	add_last(int x, int y);
+		void	destroy();					//Reestablecimiento de valores base
+		void	add_last(int x, int y);		//Añadir una nueva posicion al final con sus respectivas coordenadas
 
 };
 

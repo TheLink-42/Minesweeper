@@ -38,12 +38,12 @@ PosList	UndoList::get_last() const
 
 void	UndoList::add_last(PosList list)
 {
-	if (count < MAX_UNDO)
+	if (count < MAX_UNDO)					//Si hay hueco, se incluye al final
 	{
 		this->list[count] = list;
 		count++;
 	}
-	else
+	else									//Si no hay hueco, se desplazan todas a la izquierda, dejando libre el ultimo
 	{
 		for (int i = 0; i < count - 1; i++)
 			this->list[i] = this->list[i+1];
@@ -57,7 +57,7 @@ void	UndoList::delete_last()
 }
 
 
-void	UndoList::destroy()
+void	UndoList::destroy()					//se destruyen todos los movimientos antes de destruir la lista 
 {
 	for (int i = 0; i < count; i++)
 		list[i].destroy();

@@ -49,7 +49,7 @@ Cell    Board::get_cell(int rows, int cols) const
 
 bool    Board::set_cell(int rows, int cols, Cell cell)
 {
-    bool    valid = this->is_valid(rows, cols);
+    bool    valid = this->is_valid(rows, cols);     //En caso de ser una casilla valida, se asigna la celda
     if (valid)
         cells[rows][cols] = cell;
     return valid;
@@ -68,7 +68,7 @@ bool    Board::is_valid(int rows, int cols) const
 }
 
 
-void    Board::destroy()
+void    Board::destroy()                //Se destruye cada celda antes de destruir el tablero
 {
     for(int i = 0; i < rows; i++)
         for(int j = 0; j < cols; j++)
