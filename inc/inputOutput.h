@@ -6,8 +6,6 @@
 #include <iomanip>
 #include <fstream>
 
-using namespace std;
-
 const int	N_SPACE = 2;
 
 void	display_intro();

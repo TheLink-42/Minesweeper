@@ -1,5 +1,6 @@
 #include "inputOutput.h"
 
+using namespace std;
 
 ////////////////////////////////////////////////////////////////////////////////
 ////																		////
@@ -75,7 +76,7 @@ namespace
 	{
 		cout << LGREEN;
 		cout << "+------------------------------+" << endl;
-		cout << "|           VICTORY            |" << endl;
+		cout << "|           VICTORIA           |" << endl;
 		cout << "+------------------------------+" << RESET << endl;
 
 		/*
@@ -186,12 +187,12 @@ void	display_game(Game game)
 
 void	ask_pos(int& row, int& col)
 {
-	cout << "Please, introduce desired coordinates" << endl;
-	cout << "Possible choices:" << endl;
-	cout << "\t+ -3 -3 (Undo last movement)" << endl;
-	cout << "\t+ -2 -2 (Swap mark mode)" << endl;
-	cout << "\t+ -1 -1 (Forfeit. Counts as a loss)" << endl;
-	cout << "\t+ 0+ 0+ (Coordinates of the desired cell to uncover)" << endl;
+	cout << "Por favor, introduzca las coordenadas deseadas" << endl;
+	cout << "Opciones:" << endl;
+	cout << "\t+ -3 -3 (Deshacer ultimo movimiento)" << endl;
+	cout << "\t+ -2 -2 (Alternar con el modo banderas)" << endl;
+	cout << "\t+ -1 -1 (Rendirse. Contará como derrota)" << endl;
+	cout << "\t+ 0+ 0+ (Coordenadas sobre las que se desea jugar)" << endl;
 	cin >> row >> col;
 }
 
