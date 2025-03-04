@@ -12,6 +12,7 @@ Game::Game(): board()
 	movements = 0;
 	mines = 0;
 	exposed = 0;
+	player_mines = 0;
 	mine_exposed = false;
 	mode = false;
 }
@@ -21,6 +22,7 @@ Game::Game(int rows, int cols): board(rows, cols)
 	movements = 0;
 	mines = 0;
 	exposed = 0;
+	player_mines = 0;
 	mine_exposed = false;
 	mode = false;
 }
@@ -47,6 +49,11 @@ int	Game::get_mines() const
 	return mines;
 }
 
+int	Game::get_player_mines() const 
+{
+	return player_mines;
+}
+
 int	Game::get_movements() const 
 {
 	return movements;
@@ -62,11 +69,6 @@ int	Game::get_rows() const
 	return board.get_rows();
 }
 
-Board	Game::get_board() const
-{
-	return board;
-}
-
 bool	Game::get_mode() const
 {
 	return mode;
@@ -75,10 +77,28 @@ bool	Game::get_mode() const
 bool	Game::set_mine(int row, int col)
 {
 	Cell	cell;
-	cell.set_mine();
-	mines++;
+	bool	output;
 
-	return board.set_cell(row, col, cell);
+
+	cell.set_mine();
+	output = board.set_cell(row, col, cell);
+	mines++;
+	player_mines++;
+
+	for (int r = row - 1; r <= row + 1; r++)
+	{
+		for (int c = col - 1; c <= col + 1; c++)
+		{
+			if (board.is_valid(r, c) && !is_mine(r, c))
+			{
+				cell = board.get_cell(r, c);
+				cell.set_number(cell.get_number() + 1);
+				board.set_cell(r, c, cell);
+			}
+		}
+	}
+
+	return output;
 }
 
 bool	Game::set_number(int row, int col, int n)
@@ -89,23 +109,12 @@ bool	Game::set_number(int row, int col, int n)
 	return board.set_cell(row, col, cell);
 }
 
-bool	Game::set_forfeit()
-{
-	mine_exposed = true;
-
-	return true;
-}
-
 ////////////////////////////////////////////////////////////////////////////////
 ////																		////
 ////							MEMBER FUNCTIONS							////
 ////																		////
 ////////////////////////////////////////////////////////////////////////////////
 
-bool	Game::is_valid(int row, int col) const
-{
-	return board.is_valid(row, col);
-}
 
 bool	Game::is_complete() const
 {
@@ -157,12 +166,12 @@ bool	Game::mark(int row, int col)
 		if(is_marked(row, col))
 		{
 			cell.unmark_cell();
-			mines++;
+			player_mines++;
 		}
 		else
 		{
 			cell.mark_cell();
-			mines--;
+			player_mines--;
 		}
 		board.set_cell(row, col, cell);
 	}
@@ -186,14 +195,6 @@ bool	Game::hide(int row, int col)
 	return valid;
 }
 
-//Activa y desactiva el interruptor para el modo banderas
-
-bool	Game::switch_mode()
-{
-	mode = !mode;
-
-	return true;
-}
 
 //"Elimina" el tablero (el cual elimina cada casilla) antes de "eliminar" el juego
 void	Game::destroy()
@@ -223,11 +224,7 @@ void	Game::floodfill(int row, int col, PosList& list)
 			for (int r = row - 1; r <= row + 1; r++)
 			{
 				for (int c = col - 1; c <= col + 1; c++)
-				{
-					if (r == row && c == col)				//En este caso, la casilla central ya esta evaluada por lo que la 
-						continue;							//saltamos
 					floodfill(r, c, list);
-				}
 			}
 		}
 	}
@@ -241,14 +238,27 @@ int		Game::play(int row, int col, PosList& list)
 	//Se gestionan posibles escenarios y errores con distintos valores de salida, permitiendo trabajar cada 
 	//escenario de forma individual
 
-	if (!board.is_valid(row, col))			//Casilla no valida, devuelve -1
+	if (row == -1 && col == -1)
+	{
+		output = -2;
+		mine_exposed = true;
+	}
+	else if (row == -2 && col == -2)
+	{
+		output = -3;
+		mode = !mode;
+	}
+	else if (!board.is_valid(row, col))			//Casilla no valida, devuelve -1
 		output = -1;
 
 	else if (is_exposed(row, col))			//Casilla ya descubierta, devuelve 1
 		output = 1;
 
-	else if (mode)							//En caso de estar en modo banderas, marca o desmarca la casilla en funcion de
+	else if (mode)
+	{										//En caso de estar en modo banderas, marca o desmarca la casilla en funcion de
 		mark(row, col);						//su estado anterior
+		mode = !mode;
+	}
 
 	else if (is_marked(row, col))			//Si es una casilla ya marcada y se intenta descubrir, devuelve 2
 		output = 2;

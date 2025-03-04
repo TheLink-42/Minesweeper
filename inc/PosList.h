@@ -17,7 +17,7 @@ class PosList
 
 	public:
 		PosList();							//Constructor por defecto
-		~PosList();							//Destructor por defecto
+/**/		~PosList();							//Destructor por defecto
 
 		int		get_length() const;			//Obtencion tamaño de la lista
 		int		get_posx(int i) const;		//Coordenada x de la posicion pedida

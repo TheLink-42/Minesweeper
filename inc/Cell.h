@@ -12,7 +12,7 @@ class Cell
 
 	public:
 		Cell();							//Constructor por defecto
-		~Cell();						//Destructor por defecto
+/**/		~Cell();						//Destructor por defecto
 
 		void	destroy();				//Reestablecimiento de valores base
 

@@ -22,8 +22,8 @@ RM = rm -rf
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	@$(CPP) $(CPPFLAGS) $(OBJ) -o $(NAME)
+$(NAME): $(SRC)
+	@$(CPP) $(CPPFLAGS) $(SRC) -o $(NAME)
 	@echo compiled
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.cpp

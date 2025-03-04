@@ -9,32 +9,32 @@ class Game
 		Board	board;
 		int		movements;
 		int		mines;
+/**/		int		player_mines;
 		int		exposed;
-		bool	mode;
+/**/		bool	mode;
 		bool	mine_exposed;
 
+		bool	set_forfeit();									//Asignacion del juego a modo "rendirse"
+		bool	switch_mode();									//Alternar entre modo banderas
 		void	floodfill(int row, int col, PosList& list);		//Funcion recursiva para casillas vacias
 
     public:
     	Game();													//Constructor por defecto
 		Game(int rows, int cols);								//Constructor con dimensiones del tablero
-    	~Game();												//Destructor por defecto
+/**/		~Game();												//Destructor por defecto
 
 		void	destroy();										//Reestablecimiento de valores base
 
-		Board	get_board() const;								//Obtencion del tablero de juego
 		int		get_cols() const;								//Obtencion del numero de columnas
 		int		get_mines() const;								//Obtencion del numero de minas
+/**/		int		get_player_mines() const;						//Obtencion del numero de minas que faltan por marcar
 		int		get_movements() const;							//Obtencion del numero de movimientos
 		int		get_number(int row, int col) const;				//Obtencion del numero asignado en una casilla especifica
 		int		get_rows() const;								//Obtencion del numero de filas
-		bool	get_mode() const;								//Obtencion del estado del modo banderas
+/**/		bool	get_mode() const;								//Obtencion del estado del modo banderas
 
 		bool	set_mine(int row, int col);						//Asignacion de una mina en una casilla especifica
-		bool	set_number(int row, int col, int n);			//Asignacion de un numero en una casilla especifica
-		bool	set_forfeit();									//Asignacion del juego a modo "rendirse"
 		
-		bool	is_valid(int row, int col) const;				//Comprobacion de casilla valida
 		bool	is_complete() const;							//Comprobacion de juego finalizado
 		bool	exposed_mine() const;							//Comprobacion de mina expuesta
 		
@@ -44,8 +44,6 @@ class Game
 		bool	is_empty(int row, int col) const;				//Comprobacion de casilla vacia
 		bool	is_number(int row, int col) const;				//Comprobacion de casilla con numero
 		
-		
-		bool	switch_mode();									//Alternar entre modo banderas
 		bool	mark(int row, int col);							//Marcar una casilla
 		bool	hide(int row, int col);							//Esconder una casilla
 

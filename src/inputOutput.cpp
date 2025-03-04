@@ -190,8 +190,8 @@ void	ask_pos(int& row, int& col)
 	cout << "Por favor, introduzca las coordenadas deseadas" << endl;
 	cout << "Opciones:" << endl;
 	cout << "\t+ -3 -3 (Deshacer ultimo movimiento)" << endl;
-	cout << "\t+ -2 -2 (Alternar con el modo banderas)" << endl;
-	cout << "\t+ -1 -1 (Rendirse. Contará como derrota)" << endl;
+	cout << "\t+ -2 -2 (Activar modo bandera)" << endl;
+	cout << "\t+ -1 -1 (Rendirse. Contara como derrota)" << endl;
 	cout << "\t+ 0+ 0+ (Coordenadas sobre las que se desea jugar)" << endl;
 	cin >> row >> col;
 }
@@ -202,41 +202,6 @@ void	ask_pos(int& row, int& col)
 ////								OPERATORS								////
 ////																		////
 ////////////////////////////////////////////////////////////////////////////////
-
-namespace
-{
-	int		count_bombs(const Game& game, int i, int j)
-	{
-		int	bombs = 0;
-	
-		for (int r = i - 1; r <= i + 1; r++)
-		{
-			for (int c = j - 1; c <= j + 1; c++)
-			{
-				if (r == i && c == j)
-					continue;
-				if (game.is_valid(r, c) && game.is_mine(r, c))
-					bombs++;
-			}
-		}
-
-		return bombs;
-	}
-	void	fill_numbers(Game& game)
-	{
-		int 	rows = game.get_rows();
-		int		cols = game.get_cols();
-
-		for (int i = 0; i < rows; i++)
-		{
-			for (int j = 0; j < cols; j++)
-			{
-				if (game.is_empty(i, j))
-					game.set_number(i, j, count_bombs(game, i, j));
-			}
-		}
-	}
-}
 
 std::istream&	operator>>(std::istream& in, Game& game)
 {
@@ -252,7 +217,7 @@ std::istream&	operator>>(std::istream& in, Game& game)
 		in >> row >> col;
 		new_game.set_mine(row, col);
 	}
-	fill_numbers(new_game);
+//	fill_numbers(new_game);
 	game = new_game;
 	return in;
 }
@@ -278,7 +243,7 @@ namespace
 		cout << MAGENTA;
 		cout << "+------------------------------+" << endl;
 		cout << "|Jugadas: " << LBLUE << left << setw(21) << game.get_movements() << right << MAGENTA << '|' << endl;
-		cout << "|Minas:   " << LBLUE << left << setw(21) << game.get_mines() << right << MAGENTA << '|' << endl;
+		cout << "|Minas:   " << LBLUE << left << setw(21) << game.get_player_mines() << right << MAGENTA << '|' << endl;
 		cout << "|Bandera: ";
 		if (game.get_mode())
 			cout << LGREEN << "ON" << MAGENTA << setw(20) << '|' << endl;

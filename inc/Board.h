@@ -14,7 +14,7 @@ class Board
 	public:
 		Board();											//Constructor por defecto
 		Board(int rows, int cols);							//Constructor con dimensiones establecidas
-		~Board();											//Destructor por defecto
+/**/		~Board();											//Destructor por defecto
 
 		void	destroy();									//Reestablecimiento de valores base
 

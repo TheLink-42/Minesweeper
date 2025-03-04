@@ -24,9 +24,10 @@ UndoList::~UndoList()
 ////																		////
 ////////////////////////////////////////////////////////////////////////////////
 
-PosList	UndoList::get_last() const
+PosList	UndoList::get_last()
 {
-	return list[count - 1];
+	count --;
+	return list[count];
 }
 
 
@@ -50,12 +51,6 @@ void	UndoList::add_last(PosList list)
 		this->list[count - 1] = list;
 	}
 }
-
-void	UndoList::delete_last()
-{
-	count--;
-}
-
 
 void	UndoList::destroy()					//se destruyen todos los movimientos antes de destruir la lista 
 {
