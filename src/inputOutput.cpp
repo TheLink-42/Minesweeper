@@ -8,7 +8,7 @@ using namespace std;
 ////																		////
 ////////////////////////////////////////////////////////////////////////////////
 
-void	display_intro()
+void	mostrar_cabecera()
 {
 	cout << MAGENTA;
 	cout << "+------------------------------+" << endl;
@@ -24,117 +24,31 @@ namespace
 		cout << "+------------------------------+" << endl;
 		cout << "|          GAME  OVER          |" << endl;
 		cout << "+------------------------------+" << RESET << endl;
-		/*
-		string color = BG_RED;
-
-		cout << color << setw(8) << ' ' << RESET << setw(2) << ' '; //1-G
-		cout << color << setw(8) << ' ' << RESET << setw(2) << ' '; //1-A
-		cout << color << setw(2) << ' ' << RESET << setw(4) << ' ' << color << setw(2) << ' ' << RESET << setw(2) << ' '; //1-M
-		cout << color << setw(8) << ' ' << RESET << setw(7) << ' '; //1-E
-		cout << color << setw(8) << ' ' << RESET << setw(2) << ' '; //1-O
-		cout << color << setw(2) << ' ' << RESET << setw(4) << ' ' << color << setw(2) << ' ' << RESET << setw(2) << ' '; //1-V
-		cout << color << setw(8) << ' ' << RESET << setw(2) << ' '; //1-E
-		cout << color << setw(8) << ' ' << RESET << endl; //1-R
-
-		cout << color << setw(2) << ' ' << RESET << setw(8) << ' '; //2-G
-		cout << color << setw(2) << ' ' << RESET << setw(4) << ' ' << color << setw(2) << ' ' << RESET << setw(2) << ' '; //2-A 
-		cout << color << setw(3) << ' ' << RESET << setw(2) << ' ' << color << setw(3) << ' ' << RESET << setw(2) << ' '; //2-M
-		cout << color << setw(2) << ' ' << RESET << setw(13) << ' '; //2-E
-		cout << color << setw(2) << ' ' << RESET << setw(4) << ' ' << color << setw(2) << ' ' << RESET << setw(2) << ' '; //2-O
-		cout << color << setw(2) << ' ' << RESET << setw(4) << ' ' << color << setw(2) << ' ' << RESET << setw(2) << ' '; //2-V
-		cout << color << setw(2) << ' ' << RESET << setw(8) << ' '; //2-E
-		cout << color << setw(2) << ' ' << RESET << setw(4) << ' ' << color << setw(2) << ' ' << RESET << endl; //2-R
-
-		cout << color << setw(2) << ' ' << RESET << setw(3) << ' ' << color << setw(3) << ' ' << RESET << setw(2) << ' '; //3-G
-		cout << color << setw(8) << ' ' << RESET << setw(2) << ' '; //3-A
-		cout << color << setw(2) << ' ' << RESET << setw(1) << ' ' << color << setw(2) << ' ' << RESET << setw(1) << ' '  << color << setw(2) << ' ' << RESET << setw(2) << ' '; //3-M
-		cout << color << setw(8) << ' ' << RESET << setw(7) << ' '; //3-E
-		cout << color << setw(2) << ' ' << RESET << setw(4) << ' ' << color << setw(2) << ' ' << RESET << setw(3) << ' '; //3-O
-		cout << color << setw(2) << ' ' << RESET << setw(2) << ' ' << color << setw(2) << ' ' << RESET << setw(3) << ' '; //3-V
-		cout << color << setw(8) << ' ' << RESET << setw(2) << ' '; //3-E
-		cout << color << setw(8) << ' ' << RESET << endl; //3-R
-
-		cout << color << setw(2) << ' ' << RESET << setw(4) << ' ' << color << setw(2) << ' ' << RESET << setw(2) << ' '; //4-G 
-		cout << color << setw(2) << ' ' << RESET << setw(4) << ' ' << color << setw(2) << ' ' << RESET << setw(2) << ' '; //4-A
-		cout << color << setw(2) << ' ' << RESET << setw(4) << ' ' << color << setw(2) << ' ' << RESET << setw(2) << ' '; //4-M
-		cout << color << setw(2) << ' ' << RESET << setw(13) << ' '; //4-E
-		cout << color << setw(2) << ' ' << RESET << setw(4) << ' ' << color << setw(2) << ' ' << RESET << setw(3) << ' '; //4-O
-		cout << color << setw(2) << ' ' << RESET << setw(2) << ' ' << color << setw(2) << ' ' << RESET << setw(3) << ' '; //4-V
-		cout << color << setw(2) << ' ' << RESET << setw(8) << ' '; //4-E
-		cout << color << setw(2) << ' ' << RESET << setw(2) << ' ' << color << setw(2) << ' ' << RESET << endl; // 4-R
-
-		cout << color << setw(8) << ' ' << RESET << setw(2) << ' '; //5-G
-		cout << color << setw(2) << ' ' << RESET << setw(4) << ' ' << color << setw(2) << ' ' << RESET << setw(2) << ' '; //5-A
-		cout << color << setw(2) << ' ' << RESET << setw(4) << ' ' << color << setw(2) << ' ' << RESET << setw(2) << ' '; //5-M
-		cout << color << setw(8) << ' ' << RESET << setw(7) << ' '; //5-E
-		cout << color << setw(8) << ' ' << RESET << setw(5) << ' '; //5-O
-		cout << color << setw(2) << ' ' << RESET << setw(5) << ' '; //5-V
-		cout << color << setw(8) << ' ' << RESET << setw(2) << ' '; //5-E
-		cout << color << setw(2) << ' ' << RESET << setw(4) << ' ' << color << setw(2) << ' ' << RESET << endl; // 5-R	*/
 	}
-	void	display_victory()
+	void	display_victoria()
 	{
 		cout << LGREEN;
 		cout << "+------------------------------+" << endl;
 		cout << "|           VICTORIA           |" << endl;
 		cout << "+------------------------------+" << RESET << endl;
-
-		/*
-		string color = BG_LGREEN;
-
-		cout << color << setw(2) << ' ' << RESET << setw(4) << ' ' << color << setw(2) << ' ' << RESET << setw(2) << ' '; //1-V
-		cout << color << setw(8) << ' ' << RESET << setw(2) << ' '; //1-I
-		cout << color << setw(8) << ' ' << RESET << setw(2) << ' '; //1-C
-		cout << color << setw(8) << ' ' << RESET << setw(2) << ' '; //1-T
-		cout << color << setw(8) << ' ' << RESET << setw(2) << ' '; //1-O
-		cout << color << setw(8) << ' ' << RESET << setw(2) << ' '; //1-R
-		cout << color << setw(2) << ' ' << RESET << setw(4) << ' ' << color << setw(2) << ' ' << RESET << endl; //1-Y
-
-		cout << color << setw(2) << ' ' << RESET << setw(4) << ' ' << color << setw(2) << ' ' << RESET << setw(5) << ' '; //2-V
-		cout << color << setw(2) << ' ' << RESET << setw(5) << ' '; //2-I
-		cout << color << setw(2) << ' ' << RESET << setw(11) << ' '; //2-C
-		cout << color << setw(2) << ' ' << RESET << setw(5) << ' '; //2-T
-		cout << color << setw(2) << ' ' << RESET << setw(4) << ' ' << color << setw(2) << ' ' << RESET << setw(2) << ' '; //2-O
-		cout << color << setw(2) << ' ' << RESET << setw(4) << ' ' << color << setw(2) << ' ' << RESET << setw(3) << ' '; //2-R
-		cout << color << setw(2) << ' ' << RESET << setw(2) << ' ' << color << setw(2) << ' ' << RESET << endl; //2-Y
-
-		cout << ' ' << color << setw(2) << ' ' << RESET << setw(2) << ' ' << color << setw(2) << ' ' << RESET << setw(6) << ' '; //3-V
-		cout << color << setw(2) << ' ' << RESET << setw(5) << ' '; //3-I
-		cout << color << setw(2) << ' ' << RESET << setw(11) << ' '; //3-C
-		cout << color << setw(2) << ' ' << RESET << setw(5) << ' '; //3-T
-		cout << color << setw(2) << ' ' << RESET << setw(4) << ' ' << color << setw(2) << ' ' << RESET << setw(2) << ' '; //3-O
-		cout << color << setw(8) << ' ' << RESET << setw(4) << ' '; //3-R
-		cout << color << setw(4) << ' ' << RESET << endl; //3-Y
-
-		cout << ' ' << color << setw(2) << ' ' << RESET << setw(2) << ' ' << color << setw(2) << ' ' << RESET << setw(6) << ' '; //4-V
-		cout << color << setw(2) << ' ' << RESET << setw(5) << ' '; //4-I
-		cout << color << setw(2) << ' ' << RESET << setw(11) << ' '; //4-C
-		cout << color << setw(2) << ' ' << RESET << setw(5) << ' '; //4-T
-		cout << color << setw(2) << ' ' << RESET << setw(4) << ' ' << color << setw(2) << ' ' << RESET << setw(2) << ' '; //4-O
-		cout << color << setw(2) << ' ' << RESET << setw(2) << ' ' << color << setw(2) << ' ' << RESET << setw(7) << ' '; //4-R
-		cout << color << setw(2) << ' ' << RESET << endl; //4-Y
-
-		cout << "   " << color << setw(2) << ' ' << RESET << setw(5) << ' '; //5-V
-		cout << color << setw(8) << ' ' << RESET << setw(2) << ' '; //5-I
-		cout << color << setw(8) << ' ' << RESET << setw(5) << ' '; //5-C
-		cout << color << setw(2) << ' ' << RESET << setw(5) << ' '; //5-T
-		cout << color << setw(8) << ' ' << RESET << setw(2) << ' '; //1-O
-		cout << color << setw(2) << ' ' << RESET << setw(4) << ' ' << color << setw(2) << ' ' << RESET << setw(5) << ' '; //5-R
-		cout << color << setw(2) << ' ' << RESET << endl; //5-Y */
 	}
-/*	void	display_score(const Game& game)
+	void	display_forfeit()
 	{
-
-	}*/
+		cout << RED;
+		cout << "+------------------------------+" << endl;
+		cout << "|           RENDIDO            |" << endl;
+		cout << "+------------------------------+" << RESET << endl;
+	}
 }
 
-void	display_result(const Game& game)
+void	mostrar_resultado(const Juego& juego)
 {
-	if (game.exposed_mine())
+	if (juego.mina_explotada())
 		display_gameover();
+	else if (juego.esta_completo())
+		display_victoria();
 	else
-		display_victory();
-//	display_score(game);
+		display_forfeit();
 }
 
 
@@ -144,7 +58,7 @@ void	display_result(const Game& game)
 ////																		////
 ////////////////////////////////////////////////////////////////////////////////
 
-bool	load_game(Game& game)
+bool	carga_juego(Juego& juego)
 {
 	ifstream	file;
 	string		file_name;
@@ -158,7 +72,7 @@ bool	load_game(Game& game)
 		cerr << "Error: No se pudo abrir el archivo " << file_name << endl;
 	else
 	{
-		file >> game;
+		file >> juego;
 		valid = true;
 		file.close();
 	}
@@ -173,9 +87,9 @@ bool	load_game(Game& game)
 ////																		////
 ////////////////////////////////////////////////////////////////////////////////
 
-void	display_game(Game game)
+void	mostrar_juego(Juego juego)
 {
-	cout << game;
+	cout << juego;
 }
 
 
@@ -185,7 +99,7 @@ void	display_game(Game game)
 ////																		////
 ////////////////////////////////////////////////////////////////////////////////
 
-void	ask_pos(int& row, int& col)
+void	pedir_pos(int& row, int& col)
 {
 	cout << "Por favor, introduzca las coordenadas deseadas" << endl;
 	cout << "Opciones:" << endl;
@@ -203,22 +117,21 @@ void	ask_pos(int& row, int& col)
 ////																		////
 ////////////////////////////////////////////////////////////////////////////////
 
-std::istream&	operator>>(std::istream& in, Game& game)
+std::istream&	operator>>(std::istream& in, Juego& juego)
 {
 	int		row;
 	int		col;
 	int		mines;
 
 	in >> row >> col >> mines;
-	Game	new_game(row, col);
+	Juego	nuevo_juego(row, col);
 
 	for(int i = 0; i < mines; i++)
 	{
 		in >> row >> col;
-		new_game.set_mine(row, col);
+		nuevo_juego.poner_mina(row, col);
 	}
-//	fill_numbers(new_game);
-	game = new_game;
+	juego = nuevo_juego;
 	return in;
 }
 
@@ -238,52 +151,52 @@ namespace
 			break;
 		}
 	}
-	void	print_movements(const Game& game)
+	void	print_movements(const Juego& juego)
 	{
 		cout << MAGENTA;
 		cout << "+------------------------------+" << endl;
-		cout << "|Jugadas: " << LBLUE << left << setw(21) << game.get_movements() << right << MAGENTA << '|' << endl;
-		cout << "|Minas:   " << LBLUE << left << setw(21) << game.get_player_mines() << right << MAGENTA << '|' << endl;
+		cout << "|Jugadas: " << LBLUE << left << setw(21) << juego.dame_num_jugadas() << right << MAGENTA << '|' << endl;
+		cout << "|Minas:   " << LBLUE << left << setw(21) << juego.get_display_mines() << right << MAGENTA << '|' << endl;
 		cout << "|Bandera: ";
-		if (game.get_mode())
+		if (juego.get_mode())
 			cout << LGREEN << "ON" << MAGENTA << setw(20) << '|' << endl;
 		else
 			cout << RED << "OFF" << MAGENTA << setw(19) << '|' << endl;
 		cout << "+------------------------------+" << RESET << endl;
 	}
-	void	print_header(const Game& game)
+	void	print_header(const Juego& juego)
 	{
 		cout << "\t  |";
-		for (int i = 0; i < game.get_cols(); i++)
+		for (int i = 0; i < juego.dame_num_columnas(); i++)
 			cout << LBLUE << setw(N_SPACE) << i << RESET << "|";
 		cout << endl;
 	}
-	void	print_delimiter(const Game& game)
+	void	print_delimiter(const Juego& juego)
 	{
 		cout << "\t -+";
-		for (int i = 0; i < game.get_cols(); i++)
+		for (int i = 0; i < juego.dame_num_columnas(); i++)
 			cout << setw(N_SPACE + 1) << setfill('-') << '+' << setfill(' ');
 		cout << endl;
 	}
-	void	print_cell(const Game& game, int i, int j)
+	void	print_cell(const Juego& juego, int i, int j)
 	{
 		int	number;
 
 		cout << BG_GRAY << BLACK;
-		if (!game.is_exposed(i, j))
+		if (!juego.esta_descubierta(i, j))
 		{
-			if (game.is_marked(i, j))
+			if (juego.esta_marcada(i, j))
 				cout << BG_ORANGE << ORANGE;
 			cout << setw(N_SPACE) << setfill(' ') << ' ' << RESET;
 		}
 		else
 		{
 			cout << BG_BLACK;
-			if (game.is_mine(i, j))
+			if (juego.contiene_mina(i, j))
 				cout << RED << setw(N_SPACE) << setfill(' ') << '*' << RESET;
 			else
 			{
-				number = game.get_number(i, j);
+				number = juego.dame_numero(i, j);
 				color_number(number);
 				if (!number)
 					cout << setw(N_SPACE) << setfill(' ') << ' ' << RESET;
@@ -295,18 +208,18 @@ namespace
 	}
 }
 
-std::ostream&	operator<<(std::ostream& out, Game& game)
+std::ostream&	operator<<(std::ostream& out, Juego& juego)
 {
-	print_movements(game);
-	print_header(game);
-	print_delimiter(game);
-	for (int i = 0; i < game.get_rows(); i++)
+	print_movements(juego);
+	print_header(juego);
+	print_delimiter(juego);
+	for (int i = 0; i < juego.dame_num_filas(); i++)
 	{
 		cout << LBLUE << "\t" << setw(N_SPACE) << i << RESET << "|";
-		for (int j = 0; j < game.get_cols(); j++)
-			print_cell(game, i, j);
+		for (int j = 0; j < juego.dame_num_columnas(); j++)
+			print_cell(juego, i, j);
 		cout << endl;
-		print_delimiter(game);
+		print_delimiter(juego);
 	}
 	return out;
 }

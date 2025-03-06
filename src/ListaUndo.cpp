@@ -1,4 +1,4 @@
-#include "UndoList.h"
+#include "ListaUndo.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -7,12 +7,12 @@
 ////																		////
 ////////////////////////////////////////////////////////////////////////////////
 
-UndoList::UndoList(): list()
+ListaUndo::ListaUndo(): lista()
 {
-	count = 0;
+	cont = 0;
 }
 
-UndoList::~UndoList()
+ListaUndo::~ListaUndo()
 {
 
 }
@@ -24,10 +24,10 @@ UndoList::~UndoList()
 ////																		////
 ////////////////////////////////////////////////////////////////////////////////
 
-PosList	UndoList::get_last()
+ListaPosiciones	ListaUndo::ultimo_elemento()
 {
-	count --;
-	return list[count];
+	cont --;
+	return lista[cont];
 }
 
 
@@ -37,24 +37,24 @@ PosList	UndoList::get_last()
 ////																		////
 ////////////////////////////////////////////////////////////////////////////////
 
-void	UndoList::add_last(PosList list)
+void	ListaUndo::insertar_final(ListaPosiciones lista_pos)
 {
-	if (count < MAX_UNDO)					//Si hay hueco, se incluye al final
+	if (cont < MAX_UNDO)					//Si hay hueco, se incluye al final
 	{
-		this->list[count] = list;
-		count++;
+		this->lista[cont] = lista_pos;
+		cont++;
 	}
 	else									//Si no hay hueco, se desplazan todas a la izquierda, dejando libre el ultimo
 	{
-		for (int i = 0; i < count - 1; i++)
-			this->list[i] = this->list[i+1];
-		this->list[count - 1] = list;
+		for (int i = 0; i < cont - 1; i++)
+			this->lista[i] = this->lista[i+1];
+		this->lista[cont - 1] = lista_pos;
 	}
 }
 
-void	UndoList::destroy()					//se destruyen todos los movimientos antes de destruir la lista 
+void	ListaUndo::destruye()					//se destruyen todos los movimientos antes de destruir la lista 
 {
-	for (int i = 0; i < count; i++)
-		list[i].destroy();
-	count = 0;
+	for (int i = 0; i < cont; i++)
+		lista[i].destruye();
+	cont = 0;
 }

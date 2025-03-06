@@ -1,4 +1,4 @@
-#include "PosList.h"
+#include "ListaPosiciones.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -7,12 +7,12 @@
 ////																		////
 ////////////////////////////////////////////////////////////////////////////////
 
-PosList::PosList()
+ListaPosiciones::ListaPosiciones()
 {
-	count = 0;
+	cont = 0;
 }
 
-PosList::~PosList()
+ListaPosiciones::~ListaPosiciones()
 {
 
 }
@@ -24,24 +24,24 @@ PosList::~PosList()
 ////																		////
 ////////////////////////////////////////////////////////////////////////////////
 
-int	PosList::get_length() const
+int	ListaPosiciones::longitud() const
 {
-	return count;
+	return cont;
 }
 
-int	PosList::get_posx(int i) const
+int	ListaPosiciones::dame_posX(int i) const
 {
 	int x = -1;
-	if (i >= 0 && i < count)
-		x = list[i].posx;
+	if (i >= 0 && i < cont)
+		x = lista[i].posx;
 	return x;
 }
 
-int	PosList::get_posy(int i) const
+int	ListaPosiciones::dame_posY(int i) const
 {
 	int y = -1;
-	if (i >= 0 && i < count)
-		y = list[i].posy;
+	if (i >= 0 && i < cont)
+		y = lista[i].posy;
 	return y;
 }
 
@@ -52,18 +52,18 @@ int	PosList::get_posy(int i) const
 ////																		////
 ////////////////////////////////////////////////////////////////////////////////
 
-void	PosList::add_last(int x, int y)
+void	ListaPosiciones::insertar_final(int x, int y)
 {
-	if (count < MAX_LIST)
+	if (cont < MAX_LIST)
 	{
-		list[count].posx = x;
-		list[count].posy = y;
-		count++;
+		lista[cont].posx = x;
+		lista[cont].posy = y;
+		cont++;
 	}
 }
 
 
-void	PosList::destroy()
+void	ListaPosiciones::destruye()
 {
-	count = 0;
+	cont = 0;
 }

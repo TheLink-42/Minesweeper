@@ -1,57 +1,73 @@
-#include "Game.h"
-#include "UndoList.h"
+#include "Juego.h"
+#include "ListaUndo.h"
 #include "inputOutput.h"
 
 
-void	play(Game& game, int x, int y, UndoList& list);
-void	undo(Game& game, UndoList& undoList);
+int		juega(Juego& game, int x, int y, ListaUndo& list);
+void	undo(Juego& game, ListaUndo& undoList);
 
 int main( void )
 {
-	Game		game;
-	UndoList	undo;
-	int			x,y;
+	Juego		juego;
+	ListaUndo	lista_undo;
+	int			x,y,output;
 	
-	display_intro();
-	if (load_game(game))			//Solo ejecutará el juego en caso de que el archivo se haya cargado correctamente
+	mostrar_cabecera();
+	if (carga_juego(juego))			//Solo ejecutará el juego en caso de que el archivo se haya cargado correctamente
 	{
-		display_game(game);
-
-		while (!game.is_complete() && !game.exposed_mine())		//Bucle de ejecucion que finaliza con todas las casillas
-		{														//descubiertas o una mina explotada
-			ask_pos(x, y);										//Se piden las coordenadas
-			play(game, x, y, undo);								//Se ejecuta la accion correspondiente a dichas coordenadas
+		output = 0;
+		mostrar_juego(juego);
+		while (!juego.esta_completo() && !juego.mina_explotada() && output != -127)
+		{
+			pedir_pos(x, y);
+			output = juega(juego, x, y, lista_undo);
 		}
-		display_result(game);
-		game.destroy(); //Cuando implementemos memoria dinamica será util
-		undo.destroy(); //Cuando implementemos memoria dinamica será util
+		mostrar_resultado(juego);
+		juego.destruye(); 				//Cuando implementemos memoria dinamica será util
+		lista_undo.destruye(); 			//Cuando implementemos memoria dinamica será util
 	}
 
 	return 0;
 }
 
-void	undo(Game& game, UndoList& undoList)
+void	undo(Juego& juego, ListaUndo& lista_undo)
 {
-	PosList	list = undoList.get_last();						//Se obtiene un listado y el numero de todas las casillas 
-	int		tiles = list.get_length(); 						//descubiertas en el ultimo movimiento
-	for (int i = 0; i < tiles; i++)
-		game.hide(list.get_posx(i), list.get_posy(i));		//Se cubren cada una de las casillas descubiertas
+	ListaPosiciones	lista_pos;
+	int				casillas;
+	
+	lista_pos = lista_undo.ultimo_elemento();					//Se obtiene un listado y el numero de todas las casillas 
+	casillas = lista_pos.longitud(); 							//descubiertas en el ultimo movimiento
+	for (int i = 0; i < casillas; i++)
+		juego.ocultar(lista_pos.dame_posX(i), lista_pos.dame_posY(i));		//Se cubren cada una de las casillas descubiertas
 }
 
-void	play(Game& game, int x, int y, UndoList& undoList)
+int	juega(Juego& juego, int x, int y, ListaUndo& lista_undo)
 {
-	PosList	list;
-	int		output;
+	ListaPosiciones	lista_pos;
+	int		output = 0;
 
-	if (x == -3 && x == -3)
-		undo(game, undoList);
+	if (x == -3 && y == -3)
+		undo(juego, lista_undo);
+	else if (x == -1 && y == -1)
+		output = -127;
+	else if (x == -2 && y == -2)				//Comentar este condicional y descomentar los que aparecen en la funcion Juego::juega
+	{											//en caso de querer activar la opcion de rendirse y undo en mitad de una jugada
+		juego.swap_mode();						//de marcar casilla
+		mostrar_juego(juego);
+		std::cout << "¿Que casilla desea marcar?" << std::endl;
+		std::cin >> x >> y;
+		juego.marcar_desmarcar(x, y);
+		juego.swap_mode();
+	}
 	else
 	{
-		output = game.play(x, y, list);
+		output = juego.juega(x, y, lista_pos);
 		if (!output)
-			undoList.add_last(list);
+			lista_undo.insertar_final(lista_pos);
 		else if (output == -1)
 			std::cout << RED << "Por favor, introduzca coordenadas validas" << RESET << std::endl;
 	}
-	display_game(game);			//Se muestra el tablero para que se pueda apreciar el resultado de la jugada realizada
+	mostrar_juego(juego);			//Se muestra el tablero para que se pueda apreciar el resultado de la jugada realizada
+	
+	return output;
 }

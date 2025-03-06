@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Game.h"
+#include "Juego.h"
 #include "colors.h"
 #include <iostream>
 #include <iomanip>
@@ -8,12 +8,12 @@
 
 const int	N_SPACE = 2;
 
-void	display_intro();
-void	display_game(Game game);
-void	display_result(const Game& game);
+void	mostrar_cabecera();
+void	mostrar_juego(Juego juego);
+void	mostrar_resultado(const Juego& juego);
 
-void	ask_pos(int& row, int& col);
-bool	load_game(Game& game);
+void	pedir_pos(int& row, int& col);
+bool	carga_juego(Juego& juego);
 
-std::istream&	operator>>(std::istream& in, Game& game);
-std::ostream&	operator<<(std::ostream& out, Game& game);
+std::istream&	operator>>(std::istream& in, Juego& juego);
+std::ostream&	operator<<(std::ostream& out, Juego& juego);
