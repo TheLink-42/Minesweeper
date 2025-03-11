@@ -45,6 +45,7 @@ int	juega(Juego& juego, int x, int y, ListaUndo& lista_undo)
 {
 	ListaPosiciones	lista_pos;
 	int		output = 0;
+	bool	movimiento;
 
 	if (x == -3 && y == -3)
 		undo(juego, lista_undo);
@@ -59,14 +60,14 @@ int	juega(Juego& juego, int x, int y, ListaUndo& lista_undo)
 		juego.marcar_desmarcar(x, y);
 		juego.swap_mode();
 	}
-	else
+	else if (x >= 0 && x < juego.dame_num_filas() && y >= 0 && y < juego.dame_num_columnas())
 	{
-		output = juego.juega(x, y, lista_pos);
-		if (!output)
+		movimiento = juego.juega(x, y, lista_pos);
+		if (movimiento)
 			lista_undo.insertar_final(lista_pos);
-		else if (output == -1)
-			std::cout << RED << "Por favor, introduzca coordenadas validas" << RESET << std::endl;
 	}
+	else
+		std::cout << RED << "Por favor, introduzca coordenadas validas" << RESET << std::endl;
 	mostrar_juego(juego);			//Se muestra el tablero para que se pueda apreciar el resultado de la jugada realizada
 	
 	return output;

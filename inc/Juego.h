@@ -48,7 +48,7 @@ class Juego
 		bool	marcar_desmarcar(int fila, int col);				//Marcar/desmarcar una casilla
 		bool	ocultar(int fila, int col);							//Esconder una casilla
 
-		int		juega(int fila, int col, ListaPosiciones& lista_pos);		//Ejecucion de un movimiento
+		bool	juega(int fila, int col, ListaPosiciones& lista_pos);		//Ejecucion de un movimiento
 		
 };
 

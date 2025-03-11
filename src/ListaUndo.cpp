@@ -26,8 +26,13 @@ ListaUndo::~ListaUndo()
 
 ListaPosiciones	ListaUndo::ultimo_elemento()
 {
-	cont --;
-	return lista[cont];
+	ListaPosiciones	lista_pos;
+	if (cont > 0)
+	{
+		cont --;
+		lista_pos = lista[cont];
+	}
+	return lista_pos;
 }
 
 

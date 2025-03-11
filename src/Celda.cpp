@@ -73,7 +73,7 @@ bool	Celda::contiene_mina() const
 
 bool	Celda::contiene_numero() const
 {
-	return estado == numero;
+	return estado == NUMERO;
 }
 
 
