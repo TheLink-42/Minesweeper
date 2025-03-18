@@ -1,6 +1,8 @@
 #include "inputOutput.h"
 
 using namespace std;
+std::istream&	operator>>(std::istream& in, Juego& juego);
+std::ostream&	operator<<(std::ostream& out, Juego& juego);
 
 ////////////////////////////////////////////////////////////////////////////////
 ////																		////

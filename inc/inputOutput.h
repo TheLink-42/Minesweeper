@@ -14,6 +14,3 @@ void	mostrar_resultado(const Juego& juego);
 
 void	pedir_pos(int& row, int& col);
 bool	carga_juego(Juego& juego);
-
-std::istream&	operator>>(std::istream& in, Juego& juego);
-std::ostream&	operator<<(std::ostream& out, Juego& juego);

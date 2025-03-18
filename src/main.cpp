@@ -51,11 +51,11 @@ int	juega(Juego& juego, int x, int y, ListaUndo& lista_undo)
 		undo(juego, lista_undo);
 	else if (x == -1 && y == -1)
 		output = -127;
-	else if (x == -2 && y == -2)				//Comentar este condicional y descomentar los que aparecen en la funcion Juego::juega
-	{											//en caso de querer activar la opcion de rendirse y undo en mitad de una jugada
-		juego.swap_mode();						//de marcar casilla
+	else if (x == -2 && y == -2)				
+	{											
+		juego.swap_mode();						
 		mostrar_juego(juego);
-		std::cout << "¿Que casilla desea marcar?" << std::endl;
+		std::cout << "Que casilla desea marcar:" << std::endl;
 		std::cin >> x >> y;
 		juego.marcar_desmarcar(x, y);
 		juego.swap_mode();
