@@ -10,11 +10,21 @@
 ListaPosiciones::ListaPosiciones()
 {
 	cont = 0;
+	lista = nullptr;
+}
+
+ListaPosiciones::ListaPosiciones(const ListaPosiciones& other)
+{
+	cont = other.cont;
+	lista = new Posicion[cont];
+	for (int i = 0; i < cont; i++)
+		lista[i] = other.lista[i];
 }
 
 ListaPosiciones::~ListaPosiciones()
 {
-
+	if (lista != nullptr)
+		delete[] lista;
 }
 
 
@@ -54,16 +64,16 @@ int	ListaPosiciones::dame_posY(int i) const
 
 void	ListaPosiciones::insertar_final(int x, int y)
 {
-	if (cont < MAX_LIST)
+	Posicion*	newLista = new Posicion[cont + 1];
+	if (lista != nullptr)
 	{
-		lista[cont].posx = x;
-		lista[cont].posy = y;
-		cont++;
+		for (int i = 0; i < cont; i++)
+			newLista[i] = lista[i];
+		delete[] lista;
 	}
-}
-
-
-void	ListaPosiciones::destruye()
-{
-	cont = 0;
+	newLista[cont].posx = x;
+	newLista[cont].posy = y;
+	cont++;
+	
+	lista = newLista;
 }

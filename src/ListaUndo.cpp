@@ -14,7 +14,8 @@ ListaUndo::ListaUndo(): lista()
 
 ListaUndo::~ListaUndo()
 {
-
+	for (int i = 0; i < cont; i++)
+		delete lista[i];
 }
 
 
@@ -28,10 +29,7 @@ ListaPosiciones	ListaUndo::ultimo_elemento()
 {
 	ListaPosiciones	lista_pos;
 	if (cont > 0)
-	{
-		cont --;
-		lista_pos = lista[cont];
-	}
+		lista_pos = *lista[cont];
 	return lista_pos;
 }
 
@@ -42,24 +40,25 @@ ListaPosiciones	ListaUndo::ultimo_elemento()
 ////																		////
 ////////////////////////////////////////////////////////////////////////////////
 
-void	ListaUndo::insertar_final(ListaPosiciones lista_pos)
+void	ListaUndo::insertar_final(const ListaPosiciones& lista_pos)
 {
+	ListaPosiciones*	newListaPos = new ListaPosiciones(lista_pos);
 	if (cont < MAX_UNDO)					//Si hay hueco, se incluye al final
 	{
-		this->lista[cont] = lista_pos;
+		lista[cont] = newListaPos;
 		cont++;
 	}
 	else									//Si no hay hueco, se desplazan todas a la izquierda, dejando libre el ultimo
 	{
+		delete lista[0];
 		for (int i = 0; i < cont - 1; i++)
-			this->lista[i] = this->lista[i+1];
-		this->lista[cont - 1] = lista_pos;
+			lista[i] = lista[i+1];
+		lista[cont - 1] = newListaPos;
 	}
 }
 
-void	ListaUndo::destruye()					//se destruyen todos los movimientos antes de destruir la lista 
+void	ListaUndo::eliminar_ultimo()
 {
-	for (int i = 0; i < cont; i++)
-		lista[i].destruye();
-	cont = 0;
+	delete lista[cont - 1];
+	cont --;
 }
