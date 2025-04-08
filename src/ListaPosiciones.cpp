@@ -7,16 +7,14 @@
 ////																		////
 ////////////////////////////////////////////////////////////////////////////////
 
-ListaPosiciones::ListaPosiciones()
+ListaPosiciones::ListaPosiciones(): 
+cont(0), lista(nullptr)
 {
-	cont = 0;
-	lista = nullptr;
 }
 
-ListaPosiciones::ListaPosiciones(const ListaPosiciones& other)
+ListaPosiciones::ListaPosiciones(const ListaPosiciones& other): 
+cont(0), lista(other.cont > 0 ? new Posicion[other.cont] : nullptr)
 {
-	cont = other.cont;
-	lista = new Posicion[cont];
 	for (int i = 0; i < cont; i++)
 		lista[i] = other.lista[i];
 }

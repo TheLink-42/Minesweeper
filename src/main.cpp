@@ -24,7 +24,6 @@ int main( void )
 		}
 		mostrar_resultado(juego);
 		juego.destruye(); 				//Cuando implementemos memoria dinamica será util
-		lista_undo.destruye(); 			//Cuando implementemos memoria dinamica será util
 	}
 
 	return 0;
@@ -32,11 +31,10 @@ int main( void )
 
 void	undo(Juego& juego, ListaUndo& lista_undo)
 {
-	ListaPosiciones	lista_pos;
-	int				casillas;
-	
-	lista_pos = lista_undo.ultimo_elemento();					//Se obtiene un listado y el numero de todas las casillas 
-	casillas = lista_pos.longitud(); 							//descubiertas en el ultimo movimiento
+	ListaPosiciones	lista_pos = lista_undo.ultimo_elemento();
+	std::cout << "LLega" << std::endl;
+	int				casillas = lista_pos.longitud();
+
 	for (int i = 0; i < casillas; i++)
 		juego.ocultar(lista_pos.dame_posX(i), lista_pos.dame_posY(i));		//Se cubren cada una de las casillas descubiertas
 }

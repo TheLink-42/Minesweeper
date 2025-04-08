@@ -7,9 +7,11 @@
 ////																		////
 ////////////////////////////////////////////////////////////////////////////////
 
-ListaUndo::ListaUndo(): lista()
+ListaUndo::ListaUndo():
+cont(0)
 {
-	cont = 0;
+	for (int i = 0; i < MAX_UNDO; i++)
+		lista[i] = nullptr;
 }
 
 ListaUndo::~ListaUndo()
@@ -27,10 +29,9 @@ ListaUndo::~ListaUndo()
 
 ListaPosiciones	ListaUndo::ultimo_elemento()
 {
-	ListaPosiciones	lista_pos;
 	if (cont > 0)
-		lista_pos = *lista[cont];
-	return lista_pos;
+		return *lista[cont - 1];
+	return ListaPosiciones();
 }
 
 
@@ -59,6 +60,10 @@ void	ListaUndo::insertar_final(const ListaPosiciones& lista_pos)
 
 void	ListaUndo::eliminar_ultimo()
 {
-	delete lista[cont - 1];
-	cont --;
+	if (cont > 0)
+	{
+		delete lista[cont - 1];
+		lista[cont - 1] = nullptr;
+		cont --;
+	}
 }
