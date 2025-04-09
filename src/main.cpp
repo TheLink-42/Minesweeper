@@ -32,11 +32,11 @@ int main( void )
 void	undo(Juego& juego, ListaUndo& lista_undo)
 {
 	ListaPosiciones	lista_pos = lista_undo.ultimo_elemento();
-	std::cout << "LLega" << std::endl;
 	int				casillas = lista_pos.longitud();
 
 	for (int i = 0; i < casillas; i++)
 		juego.ocultar(lista_pos.dame_posX(i), lista_pos.dame_posY(i));		//Se cubren cada una de las casillas descubiertas
+	lista_undo.eliminar_ultimo();
 }
 
 int	juega(Juego& juego, int x, int y, ListaUndo& lista_undo)

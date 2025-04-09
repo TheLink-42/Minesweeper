@@ -7,6 +7,7 @@ OBJ_DIR = obj/
 SRC =	$(SRC_DIR)Tablero.cpp			\
 		$(SRC_DIR)Celda.cpp				\
 		$(SRC_DIR)Juego.cpp				\
+		$(SRC_DIR)ListaJuegos.cpp		\
 		$(SRC_DIR)ListaPosiciones.cpp	\
 		$(SRC_DIR)ListaUndo.cpp			\
 		$(SRC_DIR)inputOutput.cpp		\

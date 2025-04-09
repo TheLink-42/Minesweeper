@@ -13,7 +13,7 @@ cont(0), lista(nullptr)
 }
 
 ListaPosiciones::ListaPosiciones(const ListaPosiciones& other): 
-cont(0), lista(other.cont > 0 ? new Posicion[other.cont] : nullptr)
+cont(other.cont), lista(other.cont > 0 ? new Posicion[other.cont] : nullptr)
 {
 	for (int i = 0; i < cont; i++)
 		lista[i] = other.lista[i];
