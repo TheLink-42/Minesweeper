@@ -5,6 +5,7 @@
 class ListaJuegos
 {
 	private:
+		const int	MAX_JUEGOS = 10;
 		int		cont;
 		Juego** lista;
 		int		capacidad;

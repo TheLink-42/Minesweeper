@@ -7,16 +7,18 @@
 ////																		////
 ////////////////////////////////////////////////////////////////////////////////
 
-ListaJuegos::ListaJuegos(): cont(0)
+ListaJuegos::ListaJuegos(): cont(0),  capacidad(MAX_JUEGOS)
 {
-
+	lista = new Juego*[MAX_JUEGOS];
+	for (int i = 0; i < MAX_JUEGOS; i++)
+		lista[i] = nullptr;
 }
 
 ListaJuegos::~ListaJuegos()
 {
 	if (lista != nullptr)
 	{
-		for (int i = 0; i < capacidad; i++)
+		for (int i = 0; i < cont; i++)
 			if (lista[i] != nullptr)
 				delete lista[i];
 		delete[] lista;
@@ -58,6 +60,7 @@ void	ListaJuegos::eliminar(int pos)
 	for (; pos < cont - 1; pos++)
 		lista[pos] = lista[pos + 1];
 	lista[pos] = nullptr;
+	cont--;
 }
 
 int	ListaJuegos::insertar(const Juego& juego)
