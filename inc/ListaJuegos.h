@@ -1,13 +1,13 @@
 #pragma once
 
-class Juego;
+#include "Juego.h"
 
 class ListaJuegos
 {
 	private:
 		int		cont;
 		Juego** lista;
-		int		capcidad;
+		int		capacidad;
 	
 	public:
 		ListaJuegos();

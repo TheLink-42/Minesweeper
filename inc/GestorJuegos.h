@@ -1,6 +1,7 @@
 #pragma once
 
-class	ListaJuegos;
+#include "ListaJuegos.h"
+
 class	Juego;
 
 class	GestorJuegos
@@ -18,4 +19,8 @@ class	GestorJuegos
 
 		bool			cargar_juegos();
 		void			mostrar_lista_juegos() const;
-}
+		bool			guardar_ista_juegos() const;
+
+		int				insertar(const Juego& juego);
+		void			eliminar(int pos);
+};

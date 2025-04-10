@@ -62,6 +62,7 @@ void	ListaJuegos::eliminar(int pos)
 
 int	ListaJuegos::insertar(const Juego& juego)
 {
-
+	(void)juego;
+	return 0;
 }
 
