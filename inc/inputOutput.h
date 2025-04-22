@@ -13,4 +13,4 @@ void	mostrar_juego(Juego juego);
 void	mostrar_resultado(const Juego& juego);
 
 void	pedir_pos(int& row, int& col);
-bool	carga_juego(Juego& juego);
+Juego	carga_juego(std::ifstream& juego);

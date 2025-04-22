@@ -5,10 +5,13 @@
 class ListaJuegos
 {
 	private:
-		const int	MAX_JUEGOS = 10;
+		const int	CAPACIDAD = 10;
 		int		cont;
 		Juego** lista;
 		int		capacidad;
+
+		int		buscar(const Juego& juego) const;
+		void	resize(int tamaño);
 	
 	public:
 		ListaJuegos();

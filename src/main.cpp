@@ -1,30 +1,35 @@
-#include "Juego.h"
+#include "GestorJuegos.h"
 #include "ListaUndo.h"
 #include "inputOutput.h"
+#include "checkML.h"
+#include <ctime>
 
 
 int		juega(Juego& game, int x, int y, ListaUndo& list);
 void	undo(Juego& game, ListaUndo& undoList);
+void	existente(GestorJuegos& GP, ListaUndo& lista_undo);
+void	aleatorio(ListaUndo& lista_undo);
 
 int main( void )
 {
-	Juego		juego;
-	ListaUndo	lista_undo;
-	int			x,y,output;
-	
+//	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	srand(time(NULL));
 	mostrar_cabecera();
-	if (carga_juego(juego))			//Solo ejecutará el juego en caso de que el archivo se haya cargado correctamente
+	GestorJuegos GP;
+	ListaUndo	lista_undo;
+	if (GP.cargar_juegos())
 	{
-		output = 0;
-		mostrar_juego(juego);
-		while (!juego.esta_completo() && !juego.mina_explotada() && output != -127)
-		{
-			pedir_pos(x, y);
-			output = juega(juego, x, y, lista_undo);
-		}
-		mostrar_resultado(juego);
-		juego.destruye(); 				//Cuando implementemos memoria dinamica será util
+		int	opcion;
+		std::cout << "Juego aleatorio (opcion 1) o juego existente (opcion 2):";
+		std::cin >> opcion;
+
+		if (opcion != 2)
+			aleatorio(lista_undo);
+		else
+			existente(GP, lista_undo);
 	}
+	else
+		aleatorio(lista_undo);
 
 	return 0;
 }
@@ -69,4 +74,46 @@ int	juega(Juego& juego, int x, int y, ListaUndo& lista_undo)
 	mostrar_juego(juego);			//Se muestra el tablero para que se pueda apreciar el resultado de la jugada realizada
 	
 	return output;
+}
+
+void	aleatorio(ListaUndo& lista_undo)
+{
+	int	fila, col, mina = 0;
+	int	x,y,output = 0;
+
+	std::cout << "Generando juego aleatorio..." << std::endl;
+	std::cout << "Numero de filas (>=3) y columnas (>=3) del tablero:" << std::endl;
+	std::cin >> fila >> col;
+
+	std::cout << "Numero de minas (<" << fila*col/3 << "):";
+	std::cin >> mina;
+
+	Juego juego(fila, col, mina);
+
+	std::cout << "Juego con " << mina << "minas" << std::endl;
+	mostrar_juego(juego);
+	while (!juego.esta_completo() && !juego.mina_explotada() && output != -127)
+	{
+		pedir_pos(x, y);
+		output = juega(juego, x, y, lista_undo);
+	}
+	mostrar_resultado(juego);
+}
+
+void	existente(GestorJuegos& GP, ListaUndo& lista_undo)
+{
+	int	pos,x,y,output = 0;
+
+	GP.mostrar_lista_juegos();
+	std::cin >> pos;
+
+	Juego juego(GP.dame_juego(pos));
+	mostrar_juego(juego);
+	while (!juego.esta_completo() && !juego.mina_explotada() && output != -127)
+	{
+		pedir_pos(x, y);
+		output = juega(juego, x, y, lista_undo);
+	}
+	mostrar_resultado(juego);
+
 }

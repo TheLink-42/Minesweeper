@@ -60,26 +60,12 @@ void	mostrar_resultado(const Juego& juego)
 ////																		////
 ////////////////////////////////////////////////////////////////////////////////
 
-bool	carga_juego(Juego& juego)
+Juego	carga_juego(ifstream& file)
 {
-	ifstream	file;
-	string		file_name;
-	bool		valid = false;
+	Juego	juego;
+	file >> juego;
 
-	cout << "Por favor, introduzca el nombre del fichero escogido: ";
-	cin >> file_name;
-	file_name = "./tools/" + file_name;
-	file.open(file_name.c_str());
-	if (!file.is_open())
-		cerr << "Error: No se pudo abrir el archivo " << file_name << endl;
-	else
-	{
-		file >> juego;
-		valid = true;
-		file.close();
-	}
-
-	return valid;
+	return juego;
 }
 
 

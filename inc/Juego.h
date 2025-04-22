@@ -1,6 +1,7 @@
 #pragma once
 #include "Tablero.h"
 #include "ListaPosiciones.h"
+#include <random>
 
 
 class Juego
@@ -20,6 +21,7 @@ class Juego
     public:
     	Juego();													//Constructor por defecto
 		Juego(int filas, int cols);									//Constructor con dimensiones del tablero
+		Juego(int filas, int cols, int minas);						//Constructor con dimensiones y minas del tablero
 /**/		~Juego();												//Destructor por defecto
 
 		void	destruye();											//Reestablecimiento de valores base

@@ -1,4 +1,5 @@
 #include "ListaUndo.h"
+#include "checkML.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -16,8 +17,9 @@ cont(0)
 
 ListaUndo::~ListaUndo()
 {
-	for (int i = 0; i < cont; i++)
-		delete lista[i];
+	for (int i = 0; i < MAX_UNDO; i++)
+		if (lista[i] != nullptr)
+			delete lista[i];
 }
 
 

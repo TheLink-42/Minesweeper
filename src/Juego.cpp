@@ -26,6 +26,27 @@ Juego::Juego(int rows, int cols): tablero(rows, cols)
 	mode = false;
 }
 
+Juego::Juego(int rows, int cols, int mines): tablero(rows, cols)
+{
+	num_jugadas = 0;
+	num_minas = 0;
+	num_descubiertas = 0;
+	mina_pisada = false;
+	display_mines = 0;
+	mode = false;
+	for (int i = 0; i < mines; i++)
+	{
+		int fila = rand() % rows;
+		int col = rand() % cols;
+		while (contiene_mina(fila, col))
+		{
+			fila = rand() % rows;
+			col = rand() % cols;
+		}
+		poner_mina(fila, col);
+	}
+}
+
 Juego::~Juego()
 {
 

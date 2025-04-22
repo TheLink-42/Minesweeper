@@ -1,4 +1,5 @@
 #include "ListaPosiciones.h"
+#include "checkML.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -21,8 +22,7 @@ cont(other.cont), lista(other.cont > 0 ? new Posicion[other.cont] : nullptr)
 
 ListaPosiciones::~ListaPosiciones()
 {
-	if (lista != nullptr)
-		delete[] lista;
+	delete[] lista;
 }
 
 

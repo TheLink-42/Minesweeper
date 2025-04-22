@@ -1,5 +1,5 @@
 #include "ListaJuegos.h"
-#include "Juego.h"
+#include "checkML.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////																		////
@@ -7,10 +7,10 @@
 ////																		////
 ////////////////////////////////////////////////////////////////////////////////
 
-ListaJuegos::ListaJuegos(): cont(0),  capacidad(MAX_JUEGOS)
+ListaJuegos::ListaJuegos(): cont(0),  capacidad(CAPACIDAD)
 {
-	lista = new Juego*[MAX_JUEGOS];
-	for (int i = 0; i < MAX_JUEGOS; i++)
+	lista = new Juego*[CAPACIDAD];
+	for (int i = 0; i < CAPACIDAD; i++)
 		lista[i] = nullptr;
 }
 
@@ -49,6 +49,45 @@ const Juego&	ListaJuegos::dame_juego(int pos) const
 ////																		////
 ////////////////////////////////////////////////////////////////////////////////
 
+namespace
+{
+	int	dificultad(const Juego& juego)
+	{
+		return juego.dame_num_columnas() * juego.dame_num_filas() / juego.dame_num_minas();
+	}
+}
+
+void	ListaJuegos::resize(int tamaño)
+{
+	Juego** nuevaLista = new Juego*[tamaño];
+	for (int i = 0; i < tamaño; i++)
+	{
+		if (i < cont)
+			nuevaLista[i] = lista[i];
+		else
+			nuevaLista[i] = nullptr;
+	}
+	delete[] lista;
+	lista = nuevaLista;
+	capacidad = tamaño;
+}
+
+int		ListaJuegos::buscar(const Juego& juego) const
+{
+	int	newGameDiff = dificultad(juego);
+	int	pos = cont;
+	int i = 0;
+
+	while (i < cont && pos == cont)
+	{
+		int	currGameDiff = dificultad(*lista[i]);
+		if (newGameDiff < currGameDiff)
+			pos = i;
+		i++;
+	}
+	return pos;
+}
+
 bool	ListaJuegos::es_vacia() const
 {
 	return cont == 0;
@@ -56,16 +95,28 @@ bool	ListaJuegos::es_vacia() const
 
 void	ListaJuegos::eliminar(int pos)
 {
-	delete lista[pos];
-	for (; pos < cont - 1; pos++)
-		lista[pos] = lista[pos + 1];
-	lista[pos] = nullptr;
-	cont--;
+	if (pos >= 0 && pos < cont)
+	{
+		delete lista[pos];
+		for (; pos < cont - 1; pos++)
+			lista[pos] = lista[pos + 1];
+		lista[pos] = nullptr;
+		cont--;
+	}
 }
 
 int	ListaJuegos::insertar(const Juego& juego)
 {
-	(void)juego;
-	return 0;
+	int	pos;
+
+	if (cont == capacidad)
+		resize(capacidad + CAPACIDAD);
+	pos = buscar(juego);
+	for (int i = cont; i > pos; i--)
+		lista[i] = lista[i - 1];
+	lista[pos] =  new Juego(juego);
+	cont++;
+	
+	return pos;
 }
 
