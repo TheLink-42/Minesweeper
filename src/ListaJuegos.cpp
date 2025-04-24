@@ -1,5 +1,5 @@
 #include "ListaJuegos.h"
-#include "checkML.h"
+//#include "checkML.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////																		////
@@ -57,10 +57,10 @@ namespace
 	}
 }
 
-void	ListaJuegos::resize(int tamaño)
+void	ListaJuegos::resize(int tamano)
 {
-	Juego** nuevaLista = new Juego*[tamaño];
-	for (int i = 0; i < tamaño; i++)
+	Juego** nuevaLista = new Juego*[tamano];
+	for (int i = 0; i < tamano; i++)
 	{
 		if (i < cont)
 			nuevaLista[i] = lista[i];
@@ -69,21 +69,31 @@ void	ListaJuegos::resize(int tamaño)
 	}
 	delete[] lista;
 	lista = nuevaLista;
-	capacidad = tamaño;
+	capacidad = tamano;
 }
 
 int		ListaJuegos::buscar(const Juego& juego) const
 {
+	int pos = 0;
 	int	newGameDiff = dificultad(juego);
-	int	pos = cont;
-	int i = 0;
+	int	left = 0;
+	int	right = cont - 1;
 
-	while (i < cont && pos == cont)
+	if (newGameDiff < dificultad(dame_juego(left)))
+		pos = 0;
+	else if (newGameDiff >= dificultad(dame_juego(right)))
+		pos = cont;
+	else
 	{
-		int	currGameDiff = dificultad(*lista[i]);
-		if (newGameDiff < currGameDiff)
-			pos = i;
-		i++;
+		while (left < right)
+		{
+			int mid = left + (right - left) / 2;
+			if (newGameDiff < dificultad(dame_juego(mid)))
+				right = mid;
+			else
+				left = mid + 1;
+		}
+		pos = left;
 	}
 	return pos;
 }
@@ -111,7 +121,10 @@ int	ListaJuegos::insertar(const Juego& juego)
 
 	if (cont == capacidad)
 		resize(capacidad + CAPACIDAD);
-	pos = buscar(juego);
+	if (cont == 0)
+		pos = 0;
+	else
+		pos = buscar(juego);
 	for (int i = cont; i > pos; i--)
 		lista[i] = lista[i - 1];
 	lista[pos] =  new Juego(juego);

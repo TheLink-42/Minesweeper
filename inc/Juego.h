@@ -1,7 +1,7 @@
 #pragma once
 #include "Tablero.h"
 #include "ListaPosiciones.h"
-#include <random>
+
 
 
 class Juego

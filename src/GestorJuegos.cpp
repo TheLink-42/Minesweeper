@@ -60,7 +60,6 @@ bool	GestorJuegos::cargar_juegos()
 
 	std::cout << "Por favor, introduzca el nombre del fichero de juegos escogido: ";
 	std::cin >> file_name;
-	file_name = "./tools/" + file_name;
 	file.open(file_name.c_str());
 	if (!file.is_open())
 		std::cerr << "Error: No se pudo abrir el archivo " << file_name << std::endl;
@@ -104,7 +103,6 @@ bool	GestorJuegos::guardar_lista_juegos() const
 
 	std::cout << "Por favor, introduzca el nombre del fichero donde quiere guardar los juegos: ";
 	std::cin >> file_name;
-	file_name = "./tools/" + file_name;
 	file.open(file_name.c_str());
 	if (!file.is_open())
 		std::cerr << "Error: No se pudo crear el archivo juegosGuardados.txt" << std::endl;

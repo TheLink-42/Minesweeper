@@ -1,4 +1,5 @@
 #include "inputOutput.h"
+#include "GestorJuegos.h"
 
 using namespace std;
 std::istream&	operator>>(std::istream& in, Juego& juego);
@@ -43,12 +44,15 @@ namespace
 	}
 }
 
-void	mostrar_resultado(const Juego& juego)
+void	mostrar_resultado(GestorJuegos& GP, int pos, const Juego& juego)
 {
 	if (juego.mina_explotada())
 		display_gameover();
 	else if (juego.esta_completo())
+	{
 		display_victoria();
+		GP.eliminar(pos);
+	}
 	else
 		display_forfeit();
 }

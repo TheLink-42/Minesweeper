@@ -11,7 +11,7 @@ class ListaJuegos
 		int		capacidad;
 
 		int		buscar(const Juego& juego) const;
-		void	resize(int tamaño);
+		void	resize(int tamano);
 	
 	public:
 		ListaJuegos();
